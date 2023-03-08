@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vega = {}));
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+      (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vega = {}));
 })(this, (function (exports) { 'use strict';
 
   function accessor(fn, fields, name) {
@@ -152,24 +152,24 @@
     }
     return configs.reduce((out, source) => {
       for (const key in source) {
-        if (key === 'signals') {
-          // for signals, we merge the signals arrays
-          // source signals take precedence over
-          // existing signals with the same name
-          out.signals = mergeNamed(out.signals, source.signals);
-        } else {
-          // otherwise, merge objects subject to recursion constraints
-          // for legend block, recurse for the layout entry only
-          // for style block, recurse for all properties
-          // otherwise, no recursion: objects overwrite, no merging
-          const r = key === 'legend' ? {
-            layout: 1
-          } : key === 'style' ? true : null;
-          writeConfig(out, key, source[key], r);
-        }
+      if (key === 'signals') {
+        // for signals, we merge the signals arrays
+        // source signals take precedence over
+        // existing signals with the same name
+        out.signals = mergeNamed(out.signals, source.signals);
+      } else {
+        // otherwise, merge objects subject to recursion constraints
+        // for legend block, recurse for the layout entry only
+        // for style block, recurse for all properties
+        // otherwise, no recursion: objects overwrite, no merging
+        const r = key === 'legend' ? {
+          layout: 1
+        } : key === 'style' ? true : null;
+        writeConfig(out, key, source[key], r);
       }
-      return out;
-    }, {});
+    }
+    return out;
+  }, {});
   }
   function writeConfig(output, key, value, recurse) {
     if (!isLegalKey(key)) return;
@@ -292,10 +292,10 @@
       gen = opt.comparator || comparator;
     array$5(fields).forEach((f, i) => {
       if (f == null) return;
-      ord.push(orders[i] === DESCENDING ? -1 : 1);
-      get.push(f = isFunction(f) ? f : field$1(f, null, opt));
-      (accessorFields(f) || []).forEach(_ => fmap[_] = 1);
-    });
+    ord.push(orders[i] === DESCENDING ? -1 : 1);
+    get.push(f = isFunction(f) ? f : field$1(f, null, opt));
+    (accessorFields(f) || []).forEach(_ => fmap[_] = 1);
+  });
     return get.length === 0 ? null : accessor(gen(get, ord), Object.keys(fmap));
   }
   const ascending$2 = (u, v) => (u < v || u == null) && v != null ? -1 : (u > v || v == null) && u != null ? 1 : (v = v instanceof Date ? +v : v, u = u instanceof Date ? +u : u) !== u && v === v ? -1 : v !== v && u === u ? 1 : 0;
@@ -500,7 +500,7 @@
     };
     if (input) Object.keys(input).forEach(key => {
       map.set(key, input[key]);
-    });
+  });
     return map;
   }
   function flush(range, value, threshold, left, right, center) {
@@ -630,7 +630,7 @@
       has: key => has$1(curr, key) || has$1(prev, key),
       get: key => has$1(curr, key) ? curr[key] : has$1(prev, key) ? update(key, prev[key]) : undefined,
       set: (key, value) => has$1(curr, key) ? curr[key] = value : update(key, value)
-    };
+  };
   }
   function merge$3(compare, array0, array1, output) {
     const n0 = array0.length,
@@ -673,9 +673,9 @@
   }
   function $(x) {
     return isArray(x) ? '[' + x.map($) + ']' : isObject(x) || isString(x) ?
-    // Output valid JSON and JS source strings.
-    // See http://timelessrepo.com/json-isnt-a-javascript-subset
-    JSON.stringify(x).replace('\u2028', '\\u2028').replace('\u2029', '\\u2029') : x;
+      // Output valid JSON and JS source strings.
+      // See http://timelessrepo.com/json-isnt-a-javascript-subset
+      JSON.stringify(x).replace('\u2028', '\\u2028').replace('\u2029', '\\u2029') : x;
   }
   function toBoolean(_) {
     return _ == null || _ === '' ? null : !_ || _ === 'false' || _ === '0' ? false : !!_;
@@ -1772,7 +1772,7 @@
   }
 
   var formatTypes = {
-    "%": (x, p) => (x * 100).toFixed(p),
+      "%": (x, p) => (x * 100).toFixed(p),
     "b": x => Math.round(x).toString(2),
     "c": x => x + "",
     "d": formatDecimal,
@@ -1785,7 +1785,7 @@
     "s": formatPrefixAuto,
     "X": x => Math.round(x).toString(16).toUpperCase(),
     "x": x => Math.round(x).toString(16)
-  };
+};
 
   function identity$4 (x) {
     return x;
@@ -1989,7 +1989,7 @@
     interval.filter = test => {
       return timeInterval$1(date => {
         if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
-      }, (date, step) => {
+    }, (date, step) => {
         if (date >= date) {
           if (step < 0) while (++step <= 0) {
             while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
@@ -2029,7 +2029,7 @@
     if (!(k > 1)) return millisecond;
     return timeInterval$1(date => {
       date.setTime(Math.floor(date / k) * k);
-    }, (date, step) => {
+  }, (date, step) => {
       date.setTime(+date + step * k);
     }, (start, end) => {
       return (end - start) / k;
@@ -2047,7 +2047,7 @@
 
   const second = timeInterval$1(date => {
     date.setTime(date - date.getMilliseconds());
-  }, (date, step) => {
+}, (date, step) => {
     date.setTime(+date + step * durationSecond$1);
   }, (start, end) => {
     return (end - start) / durationSecond$1;
@@ -2058,7 +2058,7 @@
 
   const timeMinute = timeInterval$1(date => {
     date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond$1);
-  }, (date, step) => {
+}, (date, step) => {
     date.setTime(+date + step * durationMinute$1);
   }, (start, end) => {
     return (end - start) / durationMinute$1;
@@ -2068,7 +2068,7 @@
   timeMinute.range;
   const utcMinute = timeInterval$1(date => {
     date.setUTCSeconds(0, 0);
-  }, (date, step) => {
+}, (date, step) => {
     date.setTime(+date + step * durationMinute$1);
   }, (start, end) => {
     return (end - start) / durationMinute$1;
@@ -2079,7 +2079,7 @@
 
   const timeHour = timeInterval$1(date => {
     date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond$1 - date.getMinutes() * durationMinute$1);
-  }, (date, step) => {
+}, (date, step) => {
     date.setTime(+date + step * durationHour$1);
   }, (start, end) => {
     return (end - start) / durationHour$1;
@@ -2089,7 +2089,7 @@
   timeHour.range;
   const utcHour = timeInterval$1(date => {
     date.setUTCMinutes(0, 0, 0);
-  }, (date, step) => {
+}, (date, step) => {
     date.setTime(+date + step * durationHour$1);
   }, (start, end) => {
     return (end - start) / durationHour$1;
@@ -2102,7 +2102,7 @@
   timeDay.range;
   const utcDay = timeInterval$1(date => {
     date.setUTCHours(0, 0, 0, 0);
-  }, (date, step) => {
+}, (date, step) => {
     date.setUTCDate(date.getUTCDate() + step);
   }, (start, end) => {
     return (end - start) / durationDay$1;
@@ -2112,7 +2112,7 @@
   utcDay.range;
   const unixDay = timeInterval$1(date => {
     date.setUTCHours(0, 0, 0, 0);
-  }, (date, step) => {
+}, (date, step) => {
     date.setUTCDate(date.getUTCDate() + step);
   }, (start, end) => {
     return (end - start) / durationDay$1;
@@ -2124,8 +2124,8 @@
   function timeWeekday(i) {
     return timeInterval$1(date => {
       date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
-      date.setHours(0, 0, 0, 0);
-    }, (date, step) => {
+    date.setHours(0, 0, 0, 0);
+  }, (date, step) => {
       date.setDate(date.getDate() + step * 7);
     }, (start, end) => {
       return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute$1) / durationWeek$1;
@@ -2148,8 +2148,8 @@
   function utcWeekday(i) {
     return timeInterval$1(date => {
       date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
-      date.setUTCHours(0, 0, 0, 0);
-    }, (date, step) => {
+    date.setUTCHours(0, 0, 0, 0);
+  }, (date, step) => {
       date.setUTCDate(date.getUTCDate() + step * 7);
     }, (start, end) => {
       return (end - start) / durationWeek$1;
@@ -2172,8 +2172,8 @@
 
   const timeMonth = timeInterval$1(date => {
     date.setDate(1);
-    date.setHours(0, 0, 0, 0);
-  }, (date, step) => {
+  date.setHours(0, 0, 0, 0);
+}, (date, step) => {
     date.setMonth(date.getMonth() + step);
   }, (start, end) => {
     return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
@@ -2183,8 +2183,8 @@
   timeMonth.range;
   const utcMonth = timeInterval$1(date => {
     date.setUTCDate(1);
-    date.setUTCHours(0, 0, 0, 0);
-  }, (date, step) => {
+  date.setUTCHours(0, 0, 0, 0);
+}, (date, step) => {
     date.setUTCMonth(date.getUTCMonth() + step);
   }, (start, end) => {
     return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
@@ -2195,8 +2195,8 @@
 
   const timeYear = timeInterval$1(date => {
     date.setMonth(0, 1);
-    date.setHours(0, 0, 0, 0);
-  }, (date, step) => {
+  date.setHours(0, 0, 0, 0);
+}, (date, step) => {
     date.setFullYear(date.getFullYear() + step);
   }, (start, end) => {
     return end.getFullYear() - start.getFullYear();
@@ -2208,17 +2208,17 @@
   timeYear.every = k => {
     return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : timeInterval$1(date => {
       date.setFullYear(Math.floor(date.getFullYear() / k) * k);
-      date.setMonth(0, 1);
-      date.setHours(0, 0, 0, 0);
-    }, (date, step) => {
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, (date, step) => {
       date.setFullYear(date.getFullYear() + step * k);
     });
   };
   timeYear.range;
   const utcYear = timeInterval$1(date => {
     date.setUTCMonth(0, 1);
-    date.setUTCHours(0, 0, 0, 0);
-  }, (date, step) => {
+  date.setUTCHours(0, 0, 0, 0);
+}, (date, step) => {
     date.setUTCFullYear(date.getUTCFullYear() + step);
   }, (start, end) => {
     return end.getUTCFullYear() - start.getUTCFullYear();
@@ -2230,9 +2230,9 @@
   utcYear.every = k => {
     return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : timeInterval$1(date => {
       date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
-      date.setUTCMonth(0, 1);
-      date.setUTCHours(0, 0, 0, 0);
-    }, (date, step) => {
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, (date, step) => {
       date.setUTCFullYear(date.getUTCFullYear() + step * k);
     });
   };
@@ -2251,8 +2251,8 @@
       const target = Math.abs(stop - start) / count;
       const i = bisector(_ref => {
         let [,, step] = _ref;
-        return step;
-      }).right(tickIntervals, target);
+      return step;
+    }).right(tickIntervals, target);
       if (i === tickIntervals.length) return year.every(tickStep(start / durationYear$1, stop / durationYear$1, count));
       if (i === 0) return millisecond.every(Math.max(tickStep(start, stop, count), 1));
       const [t, step] = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
@@ -2284,11 +2284,11 @@
     if (!u.length) error('Missing time unit.');
     u.forEach(unit => {
       if (has$1(UNITS, unit)) {
-        m[unit] = 1;
-      } else {
-        error(`Invalid time unit: ${unit}.`);
-      }
-    });
+      m[unit] = 1;
+    } else {
+      error(`Invalid time unit: ${unit}.`);
+    }
+  });
     const numTypes = (m[WEEK] || m[DAY] ? 1 : 0) + (m[QUARTER] || m[MONTH] || m[DATE] ? 1 : 0) + (m[DAYOFYEAR] ? 1 : 0);
     if (numTypes > 1) {
       error(`Incompatible time units: ${units}`);
@@ -2395,9 +2395,9 @@
     const s = step || 1,
       b = peek$1(units),
       _ = (unit, p, key) => {
-        key = key || unit;
-        return getUnit(get[key], inv[key], unit === b && s, p);
-      };
+      key = key || unit;
+      return getUnit(get[key], inv[key], unit === b && s, p);
+    };
     const t = new Date(),
       u = toSet(units),
       y = u[YEAR] ? _(YEAR) : constant$4(2012),
@@ -2427,7 +2427,7 @@
   // -- LOCAL TIME --
 
   const localGet = {
-    [YEAR]: d => d.getFullYear(),
+      [YEAR]: d => d.getFullYear(),
     [QUARTER]: d => Math.floor(d.getMonth() / 3),
     [MONTH]: d => d.getMonth(),
     [DATE]: d => d.getDate(),
@@ -2439,11 +2439,11 @@
     [WEEK]: d => localWeekNum(d),
     [WEEK + DAY]: (d, y) => weekday(localWeekNum(d), d.getDay(), localFirst(y)),
     [DAY]: (d, y) => weekday(1, d.getDay(), localFirst(y))
-  };
+};
   const localInv = {
-    [QUARTER]: q => 3 * q,
+      [QUARTER]: q => 3 * q,
     [WEEK]: (w, y) => weekday(w, 0, localFirst(y))
-  };
+};
   function timeFloor(units, step) {
     return floor(units, step || 1, localGet, localInv, localDate$1);
   }
@@ -2451,7 +2451,7 @@
   // -- UTC TIME --
 
   const utcGet = {
-    [YEAR]: d => d.getUTCFullYear(),
+      [YEAR]: d => d.getUTCFullYear(),
     [QUARTER]: d => Math.floor(d.getUTCMonth() / 3),
     [MONTH]: d => d.getUTCMonth(),
     [DATE]: d => d.getUTCDate(),
@@ -2463,11 +2463,11 @@
     [WEEK]: d => utcWeekNum(d),
     [DAY]: (d, y) => weekday(1, d.getUTCDay(), utcFirst(y)),
     [WEEK + DAY]: (d, y) => weekday(utcWeekNum(d), d.getUTCDay(), utcFirst(y))
-  };
+};
   const utcInv = {
-    [QUARTER]: q => 3 * q,
+      [QUARTER]: q => 3 * q,
     [WEEK]: (w, y) => weekday(w, 0, utcFirst(y))
-  };
+};
   function utcFloor(units, step) {
     return floor(units, step || 1, utcGet, utcInv, utcDate$1);
   }
@@ -3231,8 +3231,8 @@
               break;
           }
           return trimZeroes(format(s),
-          // number format
-          format('.1f')(1)[1] // decimal point character
+            // number format
+            format('.1f')(1)[1] // decimal point character
           );
         } else {
           return format(s);
@@ -3246,31 +3246,31 @@
         if (specifier.precision == null) {
           switch (specifier.type) {
             case 's':
-              {
-                if (!isNaN(precision = precisionPrefix(step, value))) {
-                  specifier.precision = precision;
-                }
-                return formatPrefix(specifier, value);
+            {
+              if (!isNaN(precision = precisionPrefix(step, value))) {
+                specifier.precision = precision;
               }
+              return formatPrefix(specifier, value);
+            }
             case '':
             case 'e':
             case 'g':
             case 'p':
             case 'r':
-              {
-                if (!isNaN(precision = precisionRound(step, value))) {
-                  specifier.precision = precision - (specifier.type === 'e');
-                }
-                break;
+            {
+              if (!isNaN(precision = precisionRound(step, value))) {
+                specifier.precision = precision - (specifier.type === 'e');
               }
+              break;
+            }
             case 'f':
             case '%':
-              {
-                if (!isNaN(precision = precisionFixed(step))) {
-                  specifier.precision = precision - (specifier.type === '%') * 2;
-                }
-                break;
+            {
+              if (!isNaN(precision = precisionFixed(step))) {
+                specifier.precision = precision - (specifier.type === '%') * 2;
               }
+              break;
+            }
           }
         }
         return format(specifier);
@@ -3323,7 +3323,7 @@
       utcFormat: spec => isString(spec) ? utcFormat(spec) : timeMultiFormat(utcFormat, utcInterval, spec),
       timeParse: memoize(locale.parse),
       utcParse: memoize(locale.utcParse)
-    };
+  };
   }
   let defaultTimeLocale;
   resetTimeFormatDefaultLocale();
@@ -3497,8 +3497,8 @@
     return fs ? filename => new Promise((accept, reject) => {
       fs.readFile(filename, (error, data) => {
         if (error) reject(error);else accept(data);
-      });
-    }) : fileReject;
+  });
+  }) : fileReject;
   }
 
   /**
@@ -3566,8 +3566,8 @@
   function inferTypes(data, fields) {
     return fields.reduce((types, field) => {
       types[field] = inferType(data, field);
-      return types;
-    }, {});
+    return types;
+  }, {});
   }
   function delimitedFormat(delimiter) {
     const parse = function (data, format) {
@@ -3601,9 +3601,9 @@
     return format && format.copy ? JSON.parse(JSON.stringify(data)) : data;
   }
   const filters = {
-    interior: (a, b) => a !== b,
+      interior: (a, b) => a !== b,
     exterior: (a, b) => a === b
-  };
+};
   function topojson(data, format) {
     let method, object, property, filter;
     data = json(data, format);
@@ -3666,21 +3666,21 @@
     fields = Object.keys(types);
     const parsers = fields.map(field => {
       const type = types[field];
-      let parts, pattern;
-      if (type && (type.startsWith('date:') || type.startsWith('utc:'))) {
-        parts = type.split(/:(.+)?/, 2); // split on first :
-        pattern = parts[1];
-        if (pattern[0] === '\'' && pattern[pattern.length - 1] === '\'' || pattern[0] === '"' && pattern[pattern.length - 1] === '"') {
-          pattern = pattern.slice(1, -1);
-        }
-        const parse = parts[0] === 'utc' ? utcParser : timeParser;
-        return parse(pattern);
+    let parts, pattern;
+    if (type && (type.startsWith('date:') || type.startsWith('utc:'))) {
+      parts = type.split(/:(.+)?/, 2); // split on first :
+      pattern = parts[1];
+      if (pattern[0] === '\'' && pattern[pattern.length - 1] === '\'' || pattern[0] === '"' && pattern[pattern.length - 1] === '"') {
+        pattern = pattern.slice(1, -1);
       }
-      if (!typeParsers[type]) {
-        throw Error('Illegal format pattern: ' + field + ':' + type);
-      }
-      return typeParsers[type];
-    });
+      const parse = parts[0] === 'utc' ? utcParser : timeParser;
+      return parse(pattern);
+    }
+    if (!typeParsers[type]) {
+      throw Error('Illegal format pattern: ' + field + ':' + type);
+    }
+    return typeParsers[type];
+  });
     for (i = 0, n = data.length, m = fields.length; i < n; ++i) {
       datum = data[i];
       for (j = 0; j < m; ++j) {
@@ -3690,8 +3690,8 @@
     }
   }
   const loader = loaderFactory(typeof fetch !== 'undefined' && fetch,
-  // use built-in fetch API
-  null // no file system access
+    // use built-in fetch API
+    null // no file system access
   );
 
   function UniqueList(idFunc) {
@@ -3904,7 +3904,7 @@
           f = remp[i];
           tuples.forEach(t => {
             if (f(t)) cur[tupleid(t)] = -1;
-          });
+        });
         }
 
         // process all add tuples
@@ -3955,9 +3955,9 @@
           f = m.filter;
           tuples.forEach(t => {
             if (f(t) && cur[tupleid(t)] > 0) {
-              modify(t, m.field, m.value);
-            }
-          });
+            modify(t, m.field, m.value);
+          }
+        });
           pulse.modifies(m.field);
         }
 
@@ -4178,12 +4178,12 @@
         if (name === PULSE) {
           array$5(value).forEach(op => {
             if (!(op instanceof Operator)) {
-              error('Pulse parameters must be operator instances.');
-            } else if (op !== this) {
-              op.targets().add(this);
-              deps.push(op);
-            }
-          });
+            error('Pulse parameters must be operator instances.');
+          } else if (op !== this) {
+            op.targets().add(this);
+            deps.push(op);
+          }
+        });
           this.source = value;
         } else if (isArray(value)) {
           argval.set(name, -1, Array(n = value.length));
@@ -4426,21 +4426,21 @@
       let t = -1;
       return this.filter(() => {
         const now = Date.now();
-        if (now - t > pause) {
-          t = now;
-          return 1;
-        } else {
-          return 0;
-        }
-      });
+      if (now - t > pause) {
+        t = now;
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     },
     debounce(delay) {
       const s = stream();
       this.targets().add(stream(null, null, debounce(delay, e => {
         const df = e.dataflow;
-        s.receive(e);
-        if (df && df.run) df.run();
-      })));
+      s.receive(e);
+      if (df && df.run) df.run();
+    })));
       return s;
     },
     between(a, b) {
@@ -4742,7 +4742,7 @@
     const map = {};
     pulse.visit(flags, t => {
       map[tupleid(t)] = 1;
-    });
+  });
     return t => map[tupleid(t)] ? null : t;
   }
   function addFilter(a, b) {
@@ -4839,7 +4839,7 @@
     addAll() {
       let p = this;
       const reuse = !p.source || p.add === p.rem // special case for indexed set (e.g., crossfilter)
-      || !p.rem.length && p.source.length === p.add.length;
+        || !p.rem.length && p.source.length === p.add.length;
       if (reuse) {
         return p;
       } else {
@@ -5257,11 +5257,11 @@
         cb.forEach(f => {
           try {
             f(df);
-          } catch (err) {
-            df.error(err);
-          }
-        });
-      }));
+    } catch (err) {
+        df.error(err);
+      }
+    });
+    }));
     }
     return df;
   }
@@ -5488,22 +5488,22 @@
       size: () => nodes.length,
       peek: () => nodes[0],
       push: x => {
-        nodes.push(x);
-        return siftdown(nodes, 0, nodes.length - 1, cmp);
-      },
-      pop: () => {
-        const last = nodes.pop();
-        let item;
-        if (nodes.length) {
-          item = nodes[0];
-          nodes[0] = last;
-          siftup(nodes, 0, cmp);
-        } else {
-          item = last;
-        }
-        return item;
+      nodes.push(x);
+      return siftdown(nodes, 0, nodes.length - 1, cmp);
+    },
+    pop: () => {
+      const last = nodes.pop();
+      let item;
+      if (nodes.length) {
+        item = nodes[0];
+        nodes[0] = last;
+        siftup(nodes, 0, cmp);
+      } else {
+        item = last;
       }
-    };
+      return item;
+    }
+  };
   }
   function siftdown(array, start, idx, cmp) {
     let parent, pidx;
@@ -5734,8 +5734,8 @@
      * Marshalls parameter values and then invokes {@link transform}.
      * @param {Pulse} pulse - the current dataflow pulse.
      * @return {Pulse} The output pulse (or StopPropagation). A falsy return
-         value (including undefined) will let the input pulse pass through.
-    */
+     value (including undefined) will let the input pulse pass through.
+     */
     evaluate(pulse) {
       const params = this.marshall(pulse.stamp),
         out = this.transform(params, pulse);
@@ -6146,27 +6146,27 @@
   function gaussian(mean, stdev) {
     let mu, sigma;
     const dist = {
-      mean(_) {
-        if (arguments.length) {
-          mu = _ || 0;
-          return dist;
-        } else {
-          return mu;
-        }
-      },
-      stdev(_) {
-        if (arguments.length) {
-          sigma = _ == null ? 1 : _;
-          return dist;
-        } else {
-          return sigma;
-        }
-      },
-      sample: () => sampleNormal(mu, sigma),
+        mean(_) {
+          if (arguments.length) {
+            mu = _ || 0;
+            return dist;
+          } else {
+            return mu;
+          }
+        },
+        stdev(_) {
+          if (arguments.length) {
+            sigma = _ == null ? 1 : _;
+            return dist;
+          } else {
+            return sigma;
+          }
+        },
+        sample: () => sampleNormal(mu, sigma),
       pdf: value => densityNormal(value, mu, sigma),
       cdf: value => cumulativeNormal(value, mu, sigma),
       icdf: p => quantileNormal(p, mu, sigma)
-    };
+  };
     return dist.mean(mean).stdev(stdev);
   }
   function kde(support, bandwidth) {
@@ -6234,27 +6234,27 @@
   function lognormal(mean, stdev) {
     let mu, sigma;
     const dist = {
-      mean(_) {
-        if (arguments.length) {
-          mu = _ || 0;
-          return dist;
-        } else {
-          return mu;
-        }
-      },
-      stdev(_) {
-        if (arguments.length) {
-          sigma = _ == null ? 1 : _;
-          return dist;
-        } else {
-          return sigma;
-        }
-      },
-      sample: () => sampleLogNormal(mu, sigma),
+        mean(_) {
+          if (arguments.length) {
+            mu = _ || 0;
+            return dist;
+          } else {
+            return mu;
+          }
+        },
+        stdev(_) {
+          if (arguments.length) {
+            sigma = _ == null ? 1 : _;
+            return dist;
+          } else {
+            return sigma;
+          }
+        },
+        sample: () => sampleLogNormal(mu, sigma),
       pdf: value => densityLogNormal(value, mu, sigma),
       cdf: value => cumulativeLogNormal(value, mu, sigma),
       icdf: p => quantileLogNormal(p, mu, sigma)
-    };
+  };
     return dist.mean(mean).stdev(stdev);
   }
   function mixture$1(dists, weights) {
@@ -6362,27 +6362,27 @@
   function uniform(min, max) {
     let a, b;
     const dist = {
-      min(_) {
-        if (arguments.length) {
-          a = _ || 0;
-          return dist;
-        } else {
-          return a;
-        }
-      },
-      max(_) {
-        if (arguments.length) {
-          b = _ == null ? 1 : _;
-          return dist;
-        } else {
-          return b;
-        }
-      },
-      sample: () => sampleUniform(a, b),
+        min(_) {
+          if (arguments.length) {
+            a = _ || 0;
+            return dist;
+          } else {
+            return a;
+          }
+        },
+        max(_) {
+          if (arguments.length) {
+            b = _ == null ? 1 : _;
+            return dist;
+          } else {
+            return b;
+          }
+        },
+        sample: () => sampleUniform(a, b),
       pdf: value => densityUniform(value, a, b),
       cdf: value => cumulativeUniform(value, a, b),
       icdf: p => quantileUniform(p, a, b)
-    };
+  };
     if (max == null) {
       max = min == null ? 1 : min;
       min = 0;
@@ -6400,9 +6400,9 @@
   function points(data, x, y, sort) {
     data = data.filter(d => {
       let u = x(d),
-        v = y(d);
-      return u != null && (u = +u) >= u && v != null && (v = +v) >= v;
-    });
+      v = y(d);
+    return u != null && (u = +u) >= u && v != null && (v = +v) >= v;
+  });
     if (sort) {
       data.sort((a, b) => x(a) - x(b));
     }
@@ -6452,10 +6452,10 @@
       SST = 0;
     visitPoints(data, x, y, (dx, dy) => {
       const sse = dy - predict(dx),
-        sst = dy - uY;
-      SSE += sse * sse;
-      SST += sst * sst;
-    });
+      sst = dy - uY;
+    SSE += sse * sse;
+    SST += sst * sst;
+  });
     return 1 - SSE / SST;
   }
 
@@ -6468,12 +6468,12 @@
       X2 = 0,
       n = 0;
     visitPoints(data, x, y, (dx, dy) => {
-      ++n;
-      X += (dx - X) / n;
-      Y += (dy - Y) / n;
-      XY += (dx * dy - XY) / n;
-      X2 += (dx * dx - X2) / n;
-    });
+    ++n;
+    X += (dx - X) / n;
+    Y += (dy - Y) / n;
+    XY += (dx * dy - XY) / n;
+    X2 += (dx * dx - X2) / n;
+  });
     const coef = ols(X, Y, XY, X2),
       predict = x => coef[0] + coef[1] * x;
     return {
@@ -6492,13 +6492,13 @@
       X2 = 0,
       n = 0;
     visitPoints(data, x, y, (dx, dy) => {
-      ++n;
-      dx = Math.log(dx);
-      X += (dx - X) / n;
-      Y += (dy - Y) / n;
-      XY += (dx * dy - XY) / n;
-      X2 += (dx * dx - X2) / n;
-    });
+    ++n;
+    dx = Math.log(dx);
+    X += (dx - X) / n;
+    Y += (dy - Y) / n;
+    XY += (dx * dy - XY) / n;
+    X2 += (dx * dx - X2) / n;
+  });
     const coef = ols(X, Y, XY, X2),
       predict = x => coef[0] + coef[1] * Math.log(x);
     return {
@@ -6520,13 +6520,13 @@
       xy;
     visitPoints(data, x, y, (_, dy) => {
       dx = xv[n++];
-      ly = Math.log(dy);
-      xy = dx * dy;
-      YL += (dy * ly - YL) / n;
-      XY += (xy - XY) / n;
-      XYL += (xy * ly - XYL) / n;
-      X2Y += (dx * xy - X2Y) / n;
-    });
+    ly = Math.log(dy);
+    xy = dx * dy;
+    YL += (dy * ly - YL) / n;
+    XY += (xy - XY) / n;
+    XYL += (xy * ly - XYL) / n;
+    X2Y += (dx * xy - X2Y) / n;
+  });
     const [c0, c1] = ols(XY / uy, YL / uy, XYL / uy, X2Y / uy),
       predict = x => Math.exp(c0 + c1 * (x - ux));
     return {
@@ -6547,14 +6547,14 @@
       n = 0;
     visitPoints(data, x, y, (dx, dy) => {
       const lx = Math.log(dx),
-        ly = Math.log(dy);
-      ++n;
-      X += (lx - X) / n;
-      Y += (ly - Y) / n;
-      XY += (lx * ly - XY) / n;
-      X2 += (lx * lx - X2) / n;
-      YS += (dy - YS) / n;
-    });
+      ly = Math.log(dy);
+    ++n;
+    X += (lx - X) / n;
+    Y += (ly - Y) / n;
+    XY += (lx * ly - XY) / n;
+    X2 += (lx * lx - X2) / n;
+    YS += (dy - YS) / n;
+  });
     const coef = ols(X, Y, XY, X2),
       predict = x => coef[0] * Math.pow(x, coef[1]);
     coef[0] = Math.exp(coef[0]);
@@ -6592,9 +6592,9 @@
       b = (XY * X2X2 - X2Y * X3) / d,
       c = -a * X2,
       predict = x => {
-        x = x - ux;
-        return a * x * x + b * x + c + uy;
-      };
+      x = x - ux;
+      return a * x * x + b * x + c + uy;
+    };
 
     // transform coefficients back from mean-centered space
     return {
@@ -6636,11 +6636,11 @@
     rhs.push(lhs);
     const coef = gaussianElimination(rhs),
       predict = x => {
-        x -= ux;
-        let y = uy + coef[0] + coef[1] * x + coef[2] * x * x;
-        for (i = 3; i < k; ++i) y += coef[i] * Math.pow(x, i);
-        return y;
-      };
+      x -= ux;
+      let y = uy + coef[0] + coef[1] * x + coef[2] * x * x;
+      for (i = 3; i < k; ++i) y += coef[i] * Math.pow(x, i);
+      return y;
+    };
     return {
       coef: uncenter(k, coef, -ux, uy),
       predict: predict,
@@ -6908,153 +6908,153 @@
     idx: 0
   };
   const AggregateOps = {
-    values: {
-      init: m => m.cell.store = true,
+      values: {
+        init: m => m.cell.store = true,
       value: m => m.cell.data.values(),
-      idx: -1
-    },
-    count: {
-      value: m => m.cell.num
-    },
-    __count__: {
-      value: m => m.missing + m.valid
-    },
-    missing: {
-      value: m => m.missing
-    },
-    valid: {
-      value: m => m.valid
-    },
-    sum: {
-      init: m => m.sum = 0,
+    idx: -1
+},
+  count: {
+    value: m => m.cell.num
+  },
+  __count__: {
+    value: m => m.missing + m.valid
+  },
+  missing: {
+    value: m => m.missing
+  },
+  valid: {
+    value: m => m.valid
+  },
+  sum: {
+    init: m => m.sum = 0,
       value: m => m.sum,
       add: (m, v) => m.sum += +v,
       rem: (m, v) => m.sum -= v
-    },
-    product: {
-      init: m => m.product = 1,
+  },
+  product: {
+    init: m => m.product = 1,
       value: m => m.valid ? m.product : undefined,
       add: (m, v) => m.product *= v,
       rem: (m, v) => m.product /= v
-    },
-    mean: {
-      init: m => m.mean = 0,
+  },
+  mean: {
+    init: m => m.mean = 0,
       value: m => m.valid ? m.mean : undefined,
       add: (m, v) => (m.mean_d = v - m.mean, m.mean += m.mean_d / m.valid),
       rem: (m, v) => (m.mean_d = v - m.mean, m.mean -= m.valid ? m.mean_d / m.valid : m.mean)
-    },
-    average: {
-      value: m => m.valid ? m.mean : undefined,
+  },
+  average: {
+    value: m => m.valid ? m.mean : undefined,
       req: ['mean'],
       idx: 1
-    },
-    variance: {
-      init: m => m.dev = 0,
+  },
+  variance: {
+    init: m => m.dev = 0,
       value: m => m.valid > 1 ? m.dev / (m.valid - 1) : undefined,
       add: (m, v) => m.dev += m.mean_d * (v - m.mean),
       rem: (m, v) => m.dev -= m.mean_d * (v - m.mean),
       req: ['mean'],
       idx: 1
-    },
-    variancep: {
-      value: m => m.valid > 1 ? m.dev / m.valid : undefined,
+  },
+  variancep: {
+    value: m => m.valid > 1 ? m.dev / m.valid : undefined,
       req: ['variance'],
       idx: 2
-    },
-    stdev: {
-      value: m => m.valid > 1 ? Math.sqrt(m.dev / (m.valid - 1)) : undefined,
+  },
+  stdev: {
+    value: m => m.valid > 1 ? Math.sqrt(m.dev / (m.valid - 1)) : undefined,
       req: ['variance'],
       idx: 2
-    },
-    stdevp: {
-      value: m => m.valid > 1 ? Math.sqrt(m.dev / m.valid) : undefined,
+  },
+  stdevp: {
+    value: m => m.valid > 1 ? Math.sqrt(m.dev / m.valid) : undefined,
       req: ['variance'],
       idx: 2
-    },
-    stderr: {
-      value: m => m.valid > 1 ? Math.sqrt(m.dev / (m.valid * (m.valid - 1))) : undefined,
+  },
+  stderr: {
+    value: m => m.valid > 1 ? Math.sqrt(m.dev / (m.valid * (m.valid - 1))) : undefined,
       req: ['variance'],
       idx: 2
-    },
-    distinct: {
-      value: m => m.cell.data.distinct(m.get),
+  },
+  distinct: {
+    value: m => m.cell.data.distinct(m.get),
       req: ['values'],
       idx: 3
-    },
-    ci0: {
-      value: m => m.cell.data.ci0(m.get),
+  },
+  ci0: {
+    value: m => m.cell.data.ci0(m.get),
       req: ['values'],
       idx: 3
-    },
-    ci1: {
-      value: m => m.cell.data.ci1(m.get),
+  },
+  ci1: {
+    value: m => m.cell.data.ci1(m.get),
       req: ['values'],
       idx: 3
-    },
-    median: {
-      value: m => m.cell.data.q2(m.get),
+  },
+  median: {
+    value: m => m.cell.data.q2(m.get),
       req: ['values'],
       idx: 3
-    },
-    q1: {
-      value: m => m.cell.data.q1(m.get),
+  },
+  q1: {
+    value: m => m.cell.data.q1(m.get),
       req: ['values'],
       idx: 3
-    },
-    q3: {
-      value: m => m.cell.data.q3(m.get),
+  },
+  q3: {
+    value: m => m.cell.data.q3(m.get),
       req: ['values'],
       idx: 3
-    },
-    min: {
-      init: m => m.min = undefined,
+  },
+  min: {
+    init: m => m.min = undefined,
       value: m => m.min = Number.isNaN(m.min) ? m.cell.data.min(m.get) : m.min,
       add: (m, v) => {
-        if (v < m.min || m.min === undefined) m.min = v;
-      },
-      rem: (m, v) => {
-        if (v <= m.min) m.min = NaN;
-      },
-      req: ['values'],
-      idx: 4
+      if (v < m.min || m.min === undefined) m.min = v;
     },
-    max: {
-      init: m => m.max = undefined,
+    rem: (m, v) => {
+      if (v <= m.min) m.min = NaN;
+    },
+    req: ['values'],
+      idx: 4
+  },
+  max: {
+    init: m => m.max = undefined,
       value: m => m.max = Number.isNaN(m.max) ? m.cell.data.max(m.get) : m.max,
       add: (m, v) => {
-        if (v > m.max || m.max === undefined) m.max = v;
-      },
-      rem: (m, v) => {
-        if (v >= m.max) m.max = NaN;
-      },
-      req: ['values'],
-      idx: 4
+      if (v > m.max || m.max === undefined) m.max = v;
     },
-    argmin: {
-      init: m => m.argmin = undefined,
+    rem: (m, v) => {
+      if (v >= m.max) m.max = NaN;
+    },
+    req: ['values'],
+      idx: 4
+  },
+  argmin: {
+    init: m => m.argmin = undefined,
       value: m => m.argmin || m.cell.data.argmin(m.get),
       add: (m, v, t) => {
-        if (v < m.min) m.argmin = t;
-      },
-      rem: (m, v) => {
-        if (v <= m.min) m.argmin = undefined;
-      },
-      req: ['min', 'values'],
-      idx: 3
+      if (v < m.min) m.argmin = t;
     },
-    argmax: {
-      init: m => m.argmax = undefined,
+    rem: (m, v) => {
+      if (v <= m.min) m.argmin = undefined;
+    },
+    req: ['min', 'values'],
+      idx: 3
+  },
+  argmax: {
+    init: m => m.argmax = undefined,
       value: m => m.argmax || m.cell.data.argmax(m.get),
       add: (m, v, t) => {
-        if (v > m.max) m.argmax = t;
-      },
-      rem: (m, v) => {
-        if (v >= m.max) m.argmax = undefined;
-      },
-      req: ['max', 'values'],
+      if (v > m.max) m.argmax = t;
+    },
+    rem: (m, v) => {
+      if (v >= m.max) m.argmax = undefined;
+    },
+    req: ['max', 'values'],
       idx: 3
-    }
-  };
+  }
+};
   const ValidAggregateOps = Object.keys(AggregateOps).filter(d => d !== '__count__');
   function measure(key, value) {
     return out => extend$1({
@@ -7064,7 +7064,7 @@
   }
   [...ValidAggregateOps, '__count__'].forEach(key => {
     AggregateOps[key] = measure(key, AggregateOps[key]);
-  });
+});
   function createMeasure(op, name) {
     return AggregateOps[op](name);
   }
@@ -7078,7 +7078,7 @@
       if (!a.req) return;
       a.req.forEach(key => {
         if (!map[key]) getreqs(map[key] = AggregateOps[key]());
-      });
+    });
     };
     agg.forEach(getreqs);
     return Object.values(map).sort(compareIndex);
@@ -7353,7 +7353,7 @@
         curr = aggr.value,
         dims = aggr._dnames,
         vals = dims.map(() => ({})),
-        n = dims.length;
+      n = dims.length;
 
       // collect all group-by domain values
       function collect(cells) {
@@ -7402,10 +7402,10 @@
       this._dims = array$5(_.groupby);
       this._dnames = this._dims.map(d => {
         const dname = accessorName(d);
-        inputVisit(d);
-        outputs.push(dname);
-        return dname;
-      });
+      inputVisit(d);
+      outputs.push(dname);
+      return dname;
+    });
       this.cellkey = _.key ? _.key : groupkey(this._dims);
 
       // initialize aggregate measures
@@ -7675,14 +7675,14 @@
       }
       pulse.visit(flag, band ? t => {
         const v = bins(t);
-        // minimum bin value (inclusive)
-        t[b0] = v;
-        // maximum bin value (exclusive)
-        // use convoluted math for better floating point agreement
-        // see https://github.com/vega/vega/issues/830
-        // infinite values propagate through this formula! #2227
-        t[b1] = v == null ? null : start + step * (1 + (v - start) / step);
-      } : t => t[b0] = bins(t));
+      // minimum bin value (inclusive)
+      t[b0] = v;
+      // maximum bin value (exclusive)
+      // use convoluted math for better floating point agreement
+      // see https://github.com/vega/vega/issues/830
+      // infinite values propagate through this formula! #2227
+      t[b1] = v == null ? null : start + step * (1 + (v - start) / step);
+    } : t => t[b0] = bins(t));
       return pulse.modifies(band ? as : b0);
     },
     _bins(_) {
@@ -7722,21 +7722,21 @@
       remove: t => rem[$(t)] = ++cnt,
       size: () => data.length,
       data: (compare, resort) => {
-        if (cnt) {
-          data = data.filter(t => !rem[$(t)]);
-          rem = {};
-          cnt = 0;
-        }
-        if (resort && compare) {
-          data.sort(compare);
-        }
-        if (add.length) {
-          data = compare ? merge$3(compare, data, add.sort(compare)) : data.concat(add);
-          add = [];
-        }
-        return data;
+      if (cnt) {
+        data = data.filter(t => !rem[$(t)]);
+        rem = {};
+        cnt = 0;
       }
-    };
+      if (resort && compare) {
+        data.sort(compare);
+      }
+      if (add.length) {
+        data = compare ? merge$3(compare, data, add.sort(compare)) : data.concat(add);
+        add = [];
+      }
+      return data;
+    }
+  };
   }
 
   /**
@@ -7863,7 +7863,7 @@
         get = _.field,
         as = _.as || ['text', 'count'],
         add = process(t => counts[t] = 1 + (counts[t] || 0)),
-        rem = process(t => counts[t] -= 1);
+      rem = process(t => counts[t] -= 1);
       if (init) {
         pulse.visit(pulse.SOURCE, add);
       } else {
@@ -8184,10 +8184,10 @@
           domain = _.extent || extent(dist.data()),
           values = sampleCurve(method, domain, minsteps, maxsteps).map(v => {
             const tuple = {};
-            tuple[as[0]] = v[0];
-            tuple[as[1]] = v[1];
-            return ingest$1(tuple);
-          });
+        tuple[as[0]] = v[0];
+        tuple[as[1]] = v[1];
+        return ingest$1(tuple);
+      });
         if (this.value) out.rem = this.value;
         this.value = out.add = out.source = values;
       }
@@ -8283,7 +8283,7 @@
         field = _.field,
         step = _.step || autostep(source, field),
         sort = stableCompare((a, b) => field(a) - field(b)),
-        as = _.as || Output$5,
+      as = _.as || Output$5,
         n = groups.length;
 
       // compute dotplot bins per group
@@ -8359,12 +8359,12 @@
       }
       pulse.visit(mod ? pulse.SOURCE : pulse.ADD, t => {
         const v = toNumber(field(t));
-        if (v != null) {
-          // NaNs will fail all comparisons!
-          if (v < min) min = v;
-          if (v > max) max = v;
-        }
-      });
+      if (v != null) {
+        // NaNs will fail all comparisons!
+        if (v < min) min = v;
+        if (v > max) max = v;
+      }
+    });
       if (!Number.isFinite(min) || !Number.isFinite(max)) {
         let name = accessorName(field);
         if (name) name = ` for field "${name}"`;
@@ -8528,52 +8528,52 @@
 
       pulse.visit(pulse.REM, t => {
         const id = tupleid(t),
-          k = cache.get(id);
-        if (k !== undefined) {
-          cache.delete(id);
-          subflow(k).rem(t);
-        }
-      });
+        k = cache.get(id);
+      if (k !== undefined) {
+        cache.delete(id);
+        subflow(k).rem(t);
+      }
+    });
       pulse.visit(pulse.ADD, t => {
         const k = key(t);
-        cache.set(tupleid(t), k);
-        subflow(k).add(t);
-      });
+      cache.set(tupleid(t), k);
+      subflow(k).add(t);
+    });
       if (rekey || pulse.modified(key.fields)) {
         pulse.visit(pulse.MOD, t => {
           const id = tupleid(t),
-            k0 = cache.get(id),
-            k1 = key(t);
-          if (k0 === k1) {
-            subflow(k1).mod(t);
-          } else {
-            cache.set(id, k1);
-            subflow(k0).rem(t);
-            subflow(k1).add(t);
-          }
-        });
+          k0 = cache.get(id),
+          k1 = key(t);
+        if (k0 === k1) {
+          subflow(k1).mod(t);
+        } else {
+          cache.set(id, k1);
+          subflow(k0).rem(t);
+          subflow(k1).add(t);
+        }
+      });
       } else if (pulse.changed(pulse.MOD)) {
         pulse.visit(pulse.MOD, t => {
           subflow(cache.get(tupleid(t))).mod(t);
-        });
+      });
       }
       if (rekey) {
         pulse.visit(pulse.REFLOW, t => {
           const id = tupleid(t),
-            k0 = cache.get(id),
-            k1 = key(t);
-          if (k0 !== k1) {
-            cache.set(id, k1);
-            subflow(k0).rem(t);
-            subflow(k1).add(t);
-          }
-        });
+          k0 = cache.get(id),
+          k1 = key(t);
+        if (k0 !== k1) {
+          cache.set(id, k1);
+          subflow(k0).rem(t);
+          subflow(k1).add(t);
+        }
+      });
       }
       if (pulse.clean()) {
         df.runAfter(() => {
           this.clean();
-          cache.clean();
-        });
+        cache.clean();
+      });
       } else if (cache.empty > df.cleanThreshold) {
         df.runAfter(cache.clean);
       }
@@ -8632,11 +8632,11 @@
       let isMod = true;
       pulse.visit(pulse.REM, t => {
         const id = tupleid(t);
-        if (!cache.has(id)) rem.push(t);else cache.delete(id);
-      });
+      if (!cache.has(id)) rem.push(t);else cache.delete(id);
+    });
       pulse.visit(pulse.ADD, t => {
         if (test(t, _)) add.push(t);else cache.set(tupleid(t), 1);
-      });
+    });
       function revisit(t) {
         const id = tupleid(t),
           b = test(t, _),
@@ -8711,22 +8711,22 @@
       // generate flattened tuples
       pulse.visit(pulse.SOURCE, t => {
         const arrays = fields.map(f => f(t)),
-          maxlen = arrays.reduce((l, a) => Math.max(l, a.length), 0);
-        let i = 0,
-          j,
-          d,
-          v;
-        for (; i < maxlen; ++i) {
-          d = derive(t);
-          for (j = 0; j < m; ++j) {
-            d[as[j]] = (v = arrays[j][i]) == null ? null : v;
-          }
-          if (index) {
-            d[index] = i;
-          }
-          out.add.push(d);
+      maxlen = arrays.reduce((l, a) => Math.max(l, a.length), 0);
+      let i = 0,
+        j,
+        d,
+        v;
+      for (; i < maxlen; ++i) {
+        d = derive(t);
+        for (j = 0; j < m; ++j) {
+          d[as[j]] = (v = arrays[j][i]) == null ? null : v;
         }
-      });
+        if (index) {
+          d[index] = i;
+        }
+        out.add.push(d);
+      }
+    });
       this.value = out.source = out.add;
       if (index) out.modifies(index);
       return out.modifies(as);
@@ -8776,12 +8776,12 @@
       out.rem = this.value;
       pulse.visit(pulse.SOURCE, t => {
         for (let i = 0, d; i < n; ++i) {
-          d = derive(t);
-          d[k] = fnames[i];
-          d[v] = fields[i](t);
-          out.add.push(d);
-        }
-      });
+        d = derive(t);
+        d[k] = fnames[i];
+        d[v] = fields[i](t);
+        out.add.push(d);
+      }
+    });
       this.value = out.source = out.add;
       return out.modifies(as);
     }
@@ -9088,7 +9088,7 @@
       // write aggregate values to input tuples
       pulse.visit(pulse.SOURCE, t => {
         extend$1(t, cells[aggr.cellkey(t)].tuple);
-      });
+    });
       return pulse.reflow(mod).modifies(this._outputs);
     },
     changes() {
@@ -9219,18 +9219,18 @@
         }
         groups.forEach(g => {
           const density = kde(g, bandwidth)[method],
-            scale = _.counts ? g.length : 1,
-            local = domain || extent(g);
-          sampleCurve(density, local, minsteps, maxsteps).forEach(v => {
-            const t = {};
-            for (let i = 0; i < names.length; ++i) {
-              t[names[i]] = g.dims[i];
-            }
-            t[as[0]] = v[0];
-            t[as[1]] = v[1] * scale;
-            values.push(ingest$1(t));
-          });
-        });
+          scale = _.counts ? g.length : 1,
+          local = domain || extent(g);
+        sampleCurve(density, local, minsteps, maxsteps).forEach(v => {
+          const t = {};
+        for (let i = 0; i < names.length; ++i) {
+          t[names[i]] = g.dims[i];
+        }
+        t[as[0]] = v[0];
+        t[as[1]] = v[1] * scale;
+        values.push(ingest$1(t));
+      });
+      });
         if (this.value) out.rem = this.value;
         this.value = out.add = out.source = values;
       }
@@ -9282,8 +9282,8 @@
         // return promise for non-blocking async loading
         const p = df.request(_.url, _.format).then(res => {
           this._pending = array$5(res.data);
-          return df => df.touch(this);
-        });
+        return df => df.touch(this);
+      });
         return {
           async: p
         };
@@ -9538,10 +9538,10 @@
       key: _.key,
       groupby: _.groupby,
       ops: keys.map(() => op),
-      fields: keys.map(k => get$4(k, key, value, fields)),
-      as: keys.map(k => k + ''),
-      modified: _.modified.bind(_)
-    };
+    fields: keys.map(k => get$4(k, key, value, fields)),
+    as: keys.map(k => k + ''),
+    modified: _.modified.bind(_)
+  };
   }
 
   // Generate aggregate field accessor.
@@ -9556,11 +9556,11 @@
       list = [];
     pulse.visit(pulse.SOURCE, t => {
       const k = key(t);
-      if (!map[k]) {
-        map[k] = 1;
-        list.push(k);
-      }
-    });
+    if (!map[k]) {
+      map[k] = 1;
+      list.push(k);
+    }
+  });
     list.sort(ascending$2);
     return limit ? list.slice(0, limit) : list;
   }
@@ -9590,16 +9590,16 @@
       if (field) {
         pulse.visit(pulse.MOD, t => {
           const sf = subflow(t);
-          field(t).forEach(_ => sf.mod(_));
-        });
+        field(t).forEach(_ => sf.mod(_));
+      });
         pulse.visit(pulse.ADD, t => {
           const sf = subflow(t);
-          field(t).forEach(_ => sf.add(ingest$1(_)));
-        });
+        field(t).forEach(_ => sf.add(ingest$1(_)));
+      });
         pulse.visit(pulse.REM, t => {
           const sf = subflow(t);
-          field(t).forEach(_ => sf.rem(_));
-        });
+        field(t).forEach(_ => sf.rem(_));
+      });
       } else {
         pulse.visit(pulse.MOD, t => subflow(t).mod(t));
         pulse.visit(pulse.ADD, t => subflow(t).add(t));
@@ -9659,17 +9659,17 @@
       }
       pulse.visit(pulse.REM, t => {
         const id = tupleid(t);
-        out.rem.push(lut[id]);
-        lut[id] = null;
-      });
+      out.rem.push(lut[id]);
+      lut[id] = null;
+    });
       pulse.visit(pulse.ADD, t => {
         const dt = derive(t, ingest$1({}));
-        lut[tupleid(t)] = dt;
-        out.add.push(dt);
-      });
+      lut[tupleid(t)] = dt;
+      out.add.push(dt);
+    });
       pulse.visit(pulse.MOD, t => {
         out.mod.push(derive(t, lut[tupleid(t)]));
-      });
+    });
       return out;
     }
   });
@@ -9763,16 +9763,16 @@
         n = p.length;
       groups.forEach(g => {
         const q = quantiles(g, p);
-        for (let i = 0; i < n; ++i) {
-          const t = {};
-          for (let i = 0; i < names.length; ++i) {
-            t[names[i]] = g.dims[i];
-          }
-          t[as[0]] = p[i];
-          t[as[1]] = q[i];
-          values.push(ingest$1(t));
+      for (let i = 0; i < n; ++i) {
+        const t = {};
+        for (let i = 0; i < names.length; ++i) {
+          t[names[i]] = g.dims[i];
         }
-      });
+        t[as[0]] = p[i];
+        t[as[1]] = q[i];
+        values.push(ingest$1(t));
+      }
+    });
       if (this.value) out.rem = this.value;
       this.value = out.add = out.source = values;
       return out;
@@ -9805,24 +9805,24 @@
         out = pulse.fork(pulse.NO_SOURCE);
         pulse.visit(pulse.REM, t => {
           const id = tupleid(t);
-          out.rem.push(lut[id]);
-          lut[id] = null;
-        });
+        out.rem.push(lut[id]);
+        lut[id] = null;
+      });
         pulse.visit(pulse.ADD, t => {
           const dt = derive(t);
-          lut[tupleid(t)] = dt;
-          out.add.push(dt);
-        });
+        lut[tupleid(t)] = dt;
+        out.add.push(dt);
+      });
         pulse.visit(pulse.MOD, t => {
           const dt = lut[tupleid(t)];
-          for (const k in t) {
-            dt[k] = t[k];
-            // down stream writes may overwrite re-derived tuples
-            // conservatively mark all source fields as modified
-            out.modifies(k);
-          }
-          out.mod.push(dt);
-        });
+        for (const k in t) {
+          dt[k] = t[k];
+          // down stream writes may overwrite re-derived tuples
+          // conservatively mark all source fields as modified
+          out.modifies(k);
+        }
+        out.mod.push(dt);
+      });
       }
       return out;
     }
@@ -9877,12 +9877,12 @@
         // find all tuples that should be removed, add to output
         pulse.visit(pulse.REM, t => {
           const id = tupleid(t);
-          if (map[id]) {
-            map[id] = -1;
-            out.rem.push(t);
-          }
-          --cnt;
-        });
+        if (map[id]) {
+          map[id] = -1;
+          out.rem.push(t);
+        }
+        --cnt;
+      });
 
         // filter removed tuples out of the sample reservoir
         res = res.filter(t => map[tupleid(t)] !== -1);
@@ -9893,7 +9893,7 @@
         pulse.visit(pulse.SOURCE, t => {
           // update, but skip previously sampled tuples
           if (!map[tupleid(t)]) update(t);
-        });
+      });
         cap = -1;
       }
       if (mod && res.length > num) {
@@ -9908,7 +9908,7 @@
         // propagate modified tuples in the sample reservoir
         pulse.visit(pulse.MOD, t => {
           if (map[tupleid(t)]) out.mod.push(t);
-        });
+      });
       }
       if (pulse.add.length) {
         // update sample reservoir
@@ -9967,9 +9967,9 @@
       out.rem = this.value ? pulse.rem.concat(this.value) : pulse.rem;
       this.value = range$3(_.start, _.stop, _.step || 1).map(v => {
         const t = {};
-        t[as] = v;
-        return ingest$1(t);
-      });
+      t[as] = v;
+      return ingest$1(t);
+    });
       out.add = pulse.add.concat(this.value);
       return out;
     }
@@ -10068,17 +10068,17 @@
       }
       pulse.visit(flag, t => {
         const v = field(t);
-        let a, b;
-        if (v == null) {
-          t[u0] = null;
-          if (band) t[u1] = null;
-        } else {
-          t[u0] = a = b = floor(v);
-          if (band) t[u1] = b = offset(a, step);
-          if (a < min) min = a;
-          if (b > max) max = b;
-        }
-      });
+      let a, b;
+      if (v == null) {
+        t[u0] = null;
+        if (band) t[u1] = null;
+      } else {
+        t[u0] = a = b = floor(v);
+        if (band) t[u1] = b = offset(a, step);
+        if (a < min) min = a;
+        if (b > max) max = b;
+      }
+    });
       floor.start = min;
       floor.stop = max;
       return pulse.modifies(band ? as : u0);
@@ -10177,29 +10177,29 @@
     row_number: function () {
       return {
         next: w => w.index + 1
-      };
+    };
     },
     rank: function () {
       let rank;
       return {
         init: () => rank = 1,
         next: w => {
-          const i = w.index,
-            data = w.data;
-          return i && w.compare(data[i - 1], data[i]) ? rank = i + 1 : rank;
-        }
-      };
+        const i = w.index,
+          data = w.data;
+        return i && w.compare(data[i - 1], data[i]) ? rank = i + 1 : rank;
+      }
+    };
     },
     dense_rank: function () {
       let drank;
       return {
         init: () => drank = 1,
         next: w => {
-          const i = w.index,
-            d = w.data;
-          return i && w.compare(d[i - 1], d[i]) ? ++drank : drank;
-        }
-      };
+        const i = w.index,
+          d = w.data;
+        return i && w.compare(d[i - 1], d[i]) ? ++drank : drank;
+      }
+    };
     },
     percent_rank: function () {
       const rank = WindowOps.rank(),
@@ -10207,23 +10207,23 @@
       return {
         init: rank.init,
         next: w => (next(w) - 1) / (w.data.length - 1)
-      };
+    };
     },
     cume_dist: function () {
       let cume;
       return {
         init: () => cume = 0,
         next: w => {
-          const d = w.data,
-            c = w.compare;
-          let i = w.index;
-          if (cume < i) {
-            while (i + 1 < d.length && !c(d[i], d[i + 1])) ++i;
-            cume = i;
-          }
-          return (1 + cume) / d.length;
+        const d = w.data,
+          c = w.compare;
+        let i = w.index;
+        if (cume < i) {
+          while (i + 1 < d.length && !c(d[i], d[i + 1])) ++i;
+          cume = i;
         }
-      };
+        return (1 + cume) / d.length;
+      }
+    };
     },
     ntile: function (field, num) {
       num = +num;
@@ -10233,66 +10233,66 @@
       return {
         init: cume.init,
         next: w => Math.ceil(num * next(w))
-      };
+    };
     },
     lag: function (field, offset) {
       offset = +offset || 1;
       return {
         next: w => {
-          const i = w.index - offset;
-          return i >= 0 ? field(w.data[i]) : null;
-        }
-      };
+        const i = w.index - offset;
+      return i >= 0 ? field(w.data[i]) : null;
+    }
+    };
     },
     lead: function (field, offset) {
       offset = +offset || 1;
       return {
         next: w => {
-          const i = w.index + offset,
-            d = w.data;
-          return i < d.length ? field(d[i]) : null;
-        }
-      };
+        const i = w.index + offset,
+        d = w.data;
+      return i < d.length ? field(d[i]) : null;
+    }
+    };
     },
     first_value: function (field) {
       return {
         next: w => field(w.data[w.i0])
-      };
+    };
     },
     last_value: function (field) {
       return {
         next: w => field(w.data[w.i1 - 1])
-      };
+    };
     },
     nth_value: function (field, nth) {
       nth = +nth;
       if (!(nth > 0)) error('nth_value nth must be greater than zero.');
       return {
         next: w => {
-          const i = w.i0 + (nth - 1);
-          return i < w.i1 ? field(w.data[i]) : null;
-        }
-      };
+        const i = w.i0 + (nth - 1);
+      return i < w.i1 ? field(w.data[i]) : null;
+    }
+    };
     },
     prev_value: function (field) {
       let prev;
       return {
         init: () => prev = null,
         next: w => {
-          const v = field(w.data[w.index]);
-          return v != null ? prev = v : prev;
-        }
-      };
+        const v = field(w.data[w.index]);
+        return v != null ? prev = v : prev;
+      }
+    };
     },
     next_value: function (field) {
       let v, i;
       return {
         init: () => (v = null, i = -1),
         next: w => {
-          const d = w.data;
-          return w.index <= i ? v : (i = find$2(field, d, w.index)) < 0 ? (i = d.length, v = null) : v = field(d[i]);
-        }
-      };
+        const d = w.data;
+        return w.index <= i ? v : (i = find$2(field, d, w.index)) < 0 ? (i = d.length, v = null) : v = field(d[i]);
+      }
+    };
     }
   };
   function find$2(field, data, index) {
@@ -10321,35 +10321,35 @@
     visitInputs(_.sort);
     ops.forEach((op, i) => {
       const field = fields[i],
-        mname = accessorName(field),
-        name = measureName(op, mname, as[i]);
-      visitInputs(field);
-      outputs.push(name);
+      mname = accessorName(field),
+      name = measureName(op, mname, as[i]);
+    visitInputs(field);
+    outputs.push(name);
 
-      // Window operation
-      if (has$1(WindowOps, op)) {
-        windows.push(WindowOp(op, fields[i], params[i], name));
-      }
+    // Window operation
+    if (has$1(WindowOps, op)) {
+      windows.push(WindowOp(op, fields[i], params[i], name));
+    }
 
-      // Aggregate operation
-      else {
-        if (field == null && op !== 'count') {
-          error('Null aggregate field specified.');
-        }
-        if (op === 'count') {
-          counts.push(name);
-          return;
-        }
-        countOnly = false;
-        let m = map[mname];
-        if (!m) {
-          m = map[mname] = [];
-          m.field = field;
-          measures.push(m);
-        }
-        m.push(createMeasure(op, name));
+    // Aggregate operation
+    else {
+      if (field == null && op !== 'count') {
+        error('Null aggregate field specified.');
       }
-    });
+      if (op === 'count') {
+        counts.push(name);
+        return;
+      }
+      countOnly = false;
+      let m = map[mname];
+      if (!m) {
+        m = map[mname] = [];
+        m.field = field;
+        measures.push(m);
+      }
+      m.push(createMeasure(op, name));
+    }
+  });
     if (counts.length || measures.length) {
       this.cell = cell(measures, counts, countOnly);
     }
@@ -10672,8 +10672,8 @@
   let Path$1 = class Path {
     constructor(digits) {
       this._x0 = this._y0 =
-      // start of current subpath
-      this._x1 = this._y1 = null; // end of current subpath
+        // start of current subpath
+        this._x1 = this._y1 = null; // end of current subpath
       this._ = "";
       this._append = digits == null ? append$1 : appendRound$1(digits);
     }
@@ -11054,7 +11054,7 @@
 
   function array$4 (x) {
     return typeof x === "object" && "length" in x ? x // Array, TypedArray, NodeList, array-like
-    : Array.from(x); // Map, Set, iterable, string, or anything else
+      : Array.from(x); // Map, Set, iterable, string, or anything else
   }
 
   function Linear$2(context) {
@@ -11329,25 +11329,25 @@
     lineEnd: function () {
       switch (this._point) {
         case 1:
-          {
-            this._context.moveTo(this._x2, this._y2);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.moveTo(this._x2, this._y2);
+          this._context.closePath();
+          break;
+        }
         case 2:
-          {
-            this._context.moveTo((this._x2 + 2 * this._x3) / 3, (this._y2 + 2 * this._y3) / 3);
-            this._context.lineTo((this._x3 + 2 * this._x2) / 3, (this._y3 + 2 * this._y2) / 3);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.moveTo((this._x2 + 2 * this._x3) / 3, (this._y2 + 2 * this._y3) / 3);
+          this._context.lineTo((this._x3 + 2 * this._x2) / 3, (this._y3 + 2 * this._y2) / 3);
+          this._context.closePath();
+          break;
+        }
         case 3:
-          {
-            this.point(this._x2, this._y2);
-            this.point(this._x3, this._y3);
-            this.point(this._x4, this._y4);
-            break;
-          }
+        {
+          this.point(this._x2, this._y2);
+          this.point(this._x3, this._y3);
+          this.point(this._x4, this._y4);
+          break;
+        }
       }
     },
     point: function (x, y) {
@@ -11546,24 +11546,24 @@
     lineEnd: function () {
       switch (this._point) {
         case 1:
-          {
-            this._context.moveTo(this._x3, this._y3);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.moveTo(this._x3, this._y3);
+          this._context.closePath();
+          break;
+        }
         case 2:
-          {
-            this._context.lineTo(this._x3, this._y3);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.lineTo(this._x3, this._y3);
+          this._context.closePath();
+          break;
+        }
         case 3:
-          {
-            this.point(this._x3, this._y3);
-            this.point(this._x4, this._y4);
-            this.point(this._x5, this._y5);
-            break;
-          }
+        {
+          this.point(this._x3, this._y3);
+          this.point(this._x4, this._y4);
+          this.point(this._x5, this._y5);
+          break;
+        }
       }
     },
     point: function (x, y) {
@@ -11750,24 +11750,24 @@
     lineEnd: function () {
       switch (this._point) {
         case 1:
-          {
-            this._context.moveTo(this._x3, this._y3);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.moveTo(this._x3, this._y3);
+          this._context.closePath();
+          break;
+        }
         case 2:
-          {
-            this._context.lineTo(this._x3, this._y3);
-            this._context.closePath();
-            break;
-          }
+        {
+          this._context.lineTo(this._x3, this._y3);
+          this._context.closePath();
+          break;
+        }
         case 3:
-          {
-            this.point(this._x3, this._y3);
-            this.point(this._x4, this._y4);
-            this.point(this._x5, this._y5);
-            break;
-          }
+        {
+          this.point(this._x3, this._y3);
+          this.point(this._x4, this._y4);
+          this.point(this._x5, this._y5);
+          break;
+        }
       }
     },
     point: function (x, y) {
@@ -12099,17 +12099,17 @@
           this._point = 2;
         // falls through
         default:
-          {
-            if (this._t <= 0) {
-              this._context.lineTo(this._x, y);
-              this._context.lineTo(x, y);
-            } else {
-              var x1 = this._x * (1 - this._t) + x * this._t;
-              this._context.lineTo(x1, this._y);
-              this._context.lineTo(x1, y);
-            }
-            break;
+        {
+          if (this._t <= 0) {
+            this._context.lineTo(this._x, y);
+            this._context.lineTo(x, y);
+          } else {
+            var x1 = this._x * (1 - this._t) + x * this._t;
+            this._context.lineTo(x1, this._y);
+            this._context.lineTo(x1, y);
           }
+          break;
+        }
       }
       this._x = x, this._y = y;
     }
@@ -12155,16 +12155,16 @@
       case 0:
         break;
       case 1:
-        {
-          if (typeof domain === "function") this.interpolator(domain);else this.range(domain);
-          break;
-        }
+      {
+        if (typeof domain === "function") this.interpolator(domain);else this.range(domain);
+        break;
+      }
       default:
-        {
-          this.domain(domain);
-          if (typeof interpolator === "function") this.interpolator(interpolator);else this.range(interpolator);
-          break;
-        }
+      {
+        this.domain(domain);
+        if (typeof interpolator === "function") this.interpolator(interpolator);else this.range(interpolator);
+        break;
+      }
     }
     return this;
   }
@@ -12409,18 +12409,18 @@
     var m, l;
     format = (format + "").trim().toLowerCase();
     return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
-    : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
-    : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
-    : l === 4 ? rgba(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
-    : null // invalid hex
+        : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
+          : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+            : l === 4 ? rgba(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
+              : null // invalid hex
     ) : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
-    : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
-    : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
-    : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
-    : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
-    : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
-    : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
-    : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
+      : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+        : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+          : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+            : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+              : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+                : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
+                  : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
   }
   function rgbn(n) {
     return new Rgb(n >> 16 & 0xff, n >> 8 & 0xff, n & 0xff, 1);
@@ -13394,26 +13394,26 @@
     specifier = formatSpecifier(specifier == null ? ",f" : specifier);
     switch (specifier.type) {
       case "s":
-        {
-          var value = Math.max(Math.abs(start), Math.abs(stop));
-          if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
-          return formatPrefix(specifier, value);
-        }
+      {
+        var value = Math.max(Math.abs(start), Math.abs(stop));
+        if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
+        return formatPrefix(specifier, value);
+      }
       case "":
       case "e":
       case "g":
       case "p":
       case "r":
-        {
-          if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
-          break;
-        }
+      {
+        if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+        break;
+      }
       case "f":
       case "%":
-        {
-          if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
-          break;
-        }
+      {
+        if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+        break;
+      }
     }
     return format$3(specifier);
   }
@@ -13607,7 +13607,7 @@
       return domain(nice(domain(), {
         floor: x => pows(Math.floor(logs(x))),
         ceil: x => pows(Math.ceil(logs(x)))
-      }));
+    }));
     };
     return scale;
   }
@@ -14893,36 +14893,36 @@
     const matches = path.match(commandPattern) || [];
     matches.forEach(str => {
       let cmd = str[0];
-      const type = cmd.toLowerCase();
+    const type = cmd.toLowerCase();
 
-      // parse parameters
-      const paramCount = paramCounts[type];
-      const params = parseParams(type, paramCount, str.slice(1).trim());
-      const count = params.length;
+    // parse parameters
+    const paramCount = paramCounts[type];
+    const params = parseParams(type, paramCount, str.slice(1).trim());
+    const count = params.length;
 
-      // error checking based on parameter count
-      if (count < paramCount || count && count % paramCount !== 0) {
-        throw Error('Invalid SVG path, incorrect parameter count');
-      }
+    // error checking based on parameter count
+    if (count < paramCount || count && count % paramCount !== 0) {
+      throw Error('Invalid SVG path, incorrect parameter count');
+    }
 
-      // register the command
-      commands.push([cmd, ...params.slice(0, paramCount)]);
+    // register the command
+    commands.push([cmd, ...params.slice(0, paramCount)]);
 
-      // exit now if we're done, also handles zero-param 'z'
-      if (count === paramCount) {
-        return;
-      }
+    // exit now if we're done, also handles zero-param 'z'
+    if (count === paramCount) {
+      return;
+    }
 
-      // handle implicit line-to
-      if (type === 'm') {
-        cmd = cmd === 'M' ? 'L' : 'l';
-      }
+    // handle implicit line-to
+    if (type === 'm') {
+      cmd = cmd === 'M' ? 'L' : 'l';
+    }
 
-      // repeat command when given extended param list
-      for (let i = paramCount; i < count; i += paramCount) {
-        commands.push([cmd, ...params.slice(i, i + paramCount)]);
-      }
-    });
+    // repeat command when given extended param list
+    for (let i = paramCount; i < count; i += paramCount) {
+      commands.push([cmd, ...params.slice(i, i + paramCount)]);
+    }
+  });
     return commands;
   }
   function parseParams(type, paramCount, segment) {
@@ -15144,14 +15144,14 @@
           controlX = x + current[3];
           controlY = y + current[4];
           context.bezierCurveTo(x + current[1] + l,
-          // x1
-          y + current[2] + t,
-          // y1
-          controlX + l,
-          // x2
-          controlY + t,
-          // y2
-          tempX + l, tempY + t);
+            // x1
+            y + current[2] + t,
+            // y1
+            controlX + l,
+            // x2
+            controlY + t,
+            // y2
+            tempX + l, tempY + t);
           x = tempX;
           y = tempY;
           break;
@@ -15281,20 +15281,20 @@
   }
   function drawArc(context, x, y, coords) {
     const seg = segments(coords[5],
-    // end x
-    coords[6],
-    // end y
-    coords[0],
-    // radius x
-    coords[1],
-    // radius y
-    coords[3],
-    // large flag
-    coords[4],
-    // sweep flag
-    coords[2],
-    // rotation
-    x, y);
+      // end x
+      coords[6],
+      // end y
+      coords[0],
+      // radius x
+      coords[1],
+      // radius y
+      coords[3],
+      // large flag
+      coords[4],
+      // sweep flag
+      coords[2],
+      // rotation
+      x, y);
     for (let i = 0; i < seg.length; ++i) {
       const bez = bezier(seg[i]);
       context.bezierCurveTo(bez[0], bez[1], bez[2], bez[3], bez[4], bez[5]);
@@ -15900,11 +15900,11 @@
         context: 'href'
       }).then(opt => {
         decrement(loader);
-        return opt;
-      }).catch(() => {
+      return opt;
+    }).catch(() => {
         decrement(loader);
-        return null;
-      });
+      return null;
+    });
     },
     loadImage(uri) {
       const loader = this,
@@ -15914,41 +15914,41 @@
         context: 'image'
       }).then(opt => {
         const url = opt.href;
-        if (!url || !Image) throw {
-          url: url
-        };
-        const img = new Image();
+      if (!url || !Image) throw {
+        url: url
+      };
+      const img = new Image();
 
-        // set crossOrigin only if cors is defined; empty string sets anonymous mode
-        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/crossOrigin
-        const cors = has$1(opt, 'crossOrigin') ? opt.crossOrigin : 'anonymous';
-        if (cors != null) img.crossOrigin = cors;
+      // set crossOrigin only if cors is defined; empty string sets anonymous mode
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/crossOrigin
+      const cors = has$1(opt, 'crossOrigin') ? opt.crossOrigin : 'anonymous';
+      if (cors != null) img.crossOrigin = cors;
 
-        // attempt to load image resource
-        img.onload = () => decrement(loader);
-        img.onerror = () => decrement(loader);
-        img.src = url;
-        return img;
-      }).catch(e => {
+      // attempt to load image resource
+      img.onload = () => decrement(loader);
+      img.onerror = () => decrement(loader);
+      img.src = url;
+      return img;
+    }).catch(e => {
         decrement(loader);
-        return {
-          complete: false,
-          width: 0,
-          height: 0,
-          src: e && e.url || ''
-        };
-      });
+      return {
+        complete: false,
+        width: 0,
+        height: 0,
+        src: e && e.url || ''
+      };
+    });
     },
     ready() {
       const loader = this;
       return new Promise(accept => {
         function poll(value) {
-          if (!loader.pending()) accept(value);else setTimeout(() => {
-            poll(true);
-          }, 10);
-        }
-        poll(false);
-      });
+        if (!loader.pending()) accept(value);else setTimeout(() => {
+          poll(true);
+      }, 10);
+      }
+      poll(false);
+    });
     }
   };
   function boundStroke(bounds, item, miter) {
@@ -16325,9 +16325,9 @@
     return function (context, scene, bounds) {
       visit(scene, item => {
         if (!bounds || bounds.intersects(item.bounds)) {
-          drawPath(path, context, item, item);
-        }
-      });
+        drawPath(path, context, item, item);
+      }
+    });
     };
   }
   function drawOne(path) {
@@ -16356,11 +16356,11 @@
       y *= context.pixelRatio;
       return pickVisit(scene, item => {
         const b = item.bounds;
-        // first hit test against bounding box
-        if (b && !b.contains(gx, gy) || !b) return;
-        // if in bounding box, perform more careful test
-        if (test(context, item, x, y, gx, gy)) return item;
-      });
+      // first hit test against bounding box
+      if (b && !b.contains(gx, gy) || !b) return;
+      // if in bounding box, perform more careful test
+      if (test(context, item, x, y, gx, gy)) return item;
+    });
     };
   }
   function hitPath(path, filled) {
@@ -16591,46 +16591,46 @@
   function draw$4(context, scene, bounds) {
     visit(scene, group => {
       const gx = group.x || 0,
-        gy = group.y || 0,
-        fore = group.strokeForeground,
-        opacity = group.opacity == null ? 1 : group.opacity;
+      gy = group.y || 0,
+      fore = group.strokeForeground,
+      opacity = group.opacity == null ? 1 : group.opacity;
 
-      // draw group background
-      if ((group.stroke || group.fill) && opacity) {
-        rectanglePath(context, group, gx, gy);
-        blend(context, group);
-        if (group.fill && fill(context, group, opacity)) {
-          context.fill();
-        }
-        if (group.stroke && !fore && stroke(context, group, opacity)) {
-          context.stroke();
-        }
+    // draw group background
+    if ((group.stroke || group.fill) && opacity) {
+      rectanglePath(context, group, gx, gy);
+      blend(context, group);
+      if (group.fill && fill(context, group, opacity)) {
+        context.fill();
       }
-
-      // setup graphics context, set clip and bounds
-      context.save();
-      context.translate(gx, gy);
-      if (group.clip) clipGroup(context, group);
-      if (bounds) bounds.translate(-gx, -gy);
-
-      // draw group contents
-      visit(group, item => {
-        this.draw(context, item, bounds);
-      });
-
-      // restore graphics context
-      if (bounds) bounds.translate(gx, gy);
-      context.restore();
-
-      // draw group foreground
-      if (fore && group.stroke && opacity) {
-        rectanglePath(context, group, gx, gy);
-        blend(context, group);
-        if (stroke(context, group, opacity)) {
-          context.stroke();
-        }
+      if (group.stroke && !fore && stroke(context, group, opacity)) {
+        context.stroke();
       }
-    });
+    }
+
+    // setup graphics context, set clip and bounds
+    context.save();
+    context.translate(gx, gy);
+    if (group.clip) clipGroup(context, group);
+    if (bounds) bounds.translate(-gx, -gy);
+
+    // draw group contents
+    visit(group, item => {
+      this.draw(context, item, bounds);
+  });
+
+    // restore graphics context
+    if (bounds) bounds.translate(gx, gy);
+    context.restore();
+
+    // draw group foreground
+    if (fore && group.stroke && opacity) {
+      rectanglePath(context, group, gx, gy);
+      blend(context, group);
+      if (stroke(context, group, opacity)) {
+        context.stroke();
+      }
+    }
+  });
   }
   function pick(context, scene, x, y, gx, gy) {
     if (scene.bounds && !scene.bounds.contains(gx, gy) || !scene.items) {
@@ -16641,50 +16641,50 @@
     return pickVisit(scene, group => {
       let hit, dx, dy;
 
-      // first hit test bounding box
-      const b = group.bounds;
-      if (b && !b.contains(gx, gy)) return;
+    // first hit test bounding box
+    const b = group.bounds;
+    if (b && !b.contains(gx, gy)) return;
 
-      // passed bounds check, test rectangular clip
-      dx = group.x || 0;
-      dy = group.y || 0;
-      const dw = dx + (group.width || 0),
-        dh = dy + (group.height || 0),
-        c = group.clip;
-      if (c && (gx < dx || gx > dw || gy < dy || gy > dh)) return;
+    // passed bounds check, test rectangular clip
+    dx = group.x || 0;
+    dy = group.y || 0;
+    const dw = dx + (group.width || 0),
+      dh = dy + (group.height || 0),
+      c = group.clip;
+    if (c && (gx < dx || gx > dw || gy < dy || gy > dh)) return;
 
-      // adjust coordinate system
-      context.save();
-      context.translate(dx, dy);
-      dx = gx - dx;
-      dy = gy - dy;
+    // adjust coordinate system
+    context.save();
+    context.translate(dx, dy);
+    dx = gx - dx;
+    dy = gy - dy;
 
-      // test background for rounded corner clip
-      if (c && hasCornerRadius(group) && !hitCorner(context, group, cx, cy)) {
-        context.restore();
-        return null;
-      }
-      const fore = group.strokeForeground,
-        ix = scene.interactive !== false;
-
-      // hit test against group foreground
-      if (ix && fore && group.stroke && hitForeground(context, group, cx, cy)) {
-        context.restore();
-        return group;
-      }
-
-      // hit test against contained marks
-      hit = pickVisit(group, mark => pickMark(mark, dx, dy) ? this.pick(mark, x, y, dx, dy) : null);
-
-      // hit test against group background
-      if (!hit && ix && (group.fill || !fore && group.stroke) && hitBackground(context, group, cx, cy)) {
-        hit = group;
-      }
-
-      // restore state and return
+    // test background for rounded corner clip
+    if (c && hasCornerRadius(group) && !hitCorner(context, group, cx, cy)) {
       context.restore();
-      return hit || null;
-    });
+      return null;
+    }
+    const fore = group.strokeForeground,
+      ix = scene.interactive !== false;
+
+    // hit test against group foreground
+    if (ix && fore && group.stroke && hitForeground(context, group, cx, cy)) {
+      context.restore();
+      return group;
+    }
+
+    // hit test against contained marks
+    hit = pickVisit(group, mark => pickMark(mark, dx, dy) ? this.pick(mark, x, y, dx, dy) : null);
+
+    // hit test against group background
+    if (!hit && ix && (group.fill || !fore && group.stroke) && hitBackground(context, group, cx, cy)) {
+      hit = group;
+    }
+
+    // restore state and return
+    context.restore();
+    return hit || null;
+  });
   }
   function pickMark(mark, x, y) {
     return (mark.interactive !== false || mark.marktype === 'group') && mark.bounds && mark.bounds.contains(x, y);
@@ -16717,8 +16717,8 @@
       };
       renderer.loadImage(item.url).then(image => {
         item.image = image;
-        item.image.url = item.url;
-      });
+      item.image.url = item.url;
+    });
     }
     return image;
   }
@@ -16759,39 +16759,39 @@
     visit(scene, item => {
       if (bounds && !bounds.intersects(item.bounds)) return; // bounds check
 
-      const img = getImage(item, this);
-      let w = imageWidth(item, img);
-      let h = imageHeight(item, img);
-      if (w === 0 || h === 0) return; // early exit
+    const img = getImage(item, this);
+    let w = imageWidth(item, img);
+    let h = imageHeight(item, img);
+    if (w === 0 || h === 0) return; // early exit
 
-      let x = (item.x || 0) - imageXOffset(item.align, w),
-        y = (item.y || 0) - imageYOffset(item.baseline, h),
-        opacity,
-        ar0,
-        ar1,
-        t;
-      if (item.aspect !== false) {
-        ar0 = img.width / img.height;
-        ar1 = item.width / item.height;
-        if (ar0 === ar0 && ar1 === ar1 && ar0 !== ar1) {
-          if (ar1 < ar0) {
-            t = w / ar0;
-            y += (h - t) / 2;
-            h = t;
-          } else {
-            t = h * ar0;
-            x += (w - t) / 2;
-            w = t;
-          }
+    let x = (item.x || 0) - imageXOffset(item.align, w),
+      y = (item.y || 0) - imageYOffset(item.baseline, h),
+      opacity,
+      ar0,
+      ar1,
+      t;
+    if (item.aspect !== false) {
+      ar0 = img.width / img.height;
+      ar1 = item.width / item.height;
+      if (ar0 === ar0 && ar1 === ar1 && ar0 !== ar1) {
+        if (ar1 < ar0) {
+          t = w / ar0;
+          y += (h - t) / 2;
+          h = t;
+        } else {
+          t = h * ar0;
+          x += (w - t) / 2;
+          w = t;
         }
       }
-      if (img.complete || img.toDataURL) {
-        blend(context, item);
-        context.globalAlpha = (opacity = item.opacity) != null ? opacity : 1;
-        context.imageSmoothingEnabled = item.smooth !== false;
-        context.drawImage(img, x, y, w, h);
-      }
-    });
+    }
+    if (img.complete || img.toDataURL) {
+      blend(context, item);
+      context.globalAlpha = (opacity = item.opacity) != null ? opacity : 1;
+      context.imageSmoothingEnabled = item.smooth !== false;
+      context.drawImage(img, x, y, w, h);
+    }
+  });
   }
   var image = {
     type: 'image',
@@ -16899,12 +16899,12 @@
   function draw$1(context, scene, bounds) {
     visit(scene, item => {
       if (bounds && !bounds.intersects(item.bounds)) return; // bounds check
-      var opacity = item.opacity == null ? 1 : item.opacity;
-      if (opacity && path(context, item, opacity)) {
-        blend(context, item);
-        context.stroke();
-      }
-    });
+    var opacity = item.opacity == null ? 1 : item.opacity;
+    if (opacity && path(context, item, opacity)) {
+      blend(context, item);
+      context.stroke();
+    }
+  });
   }
   function hit$1(context, item, x, y) {
     if (!context.isPointInStroke) return false;
@@ -17105,54 +17105,54 @@
   function draw$5(context, scene, bounds) {
     visit(scene, item => {
       var opacity = item.opacity == null ? 1 : item.opacity,
-        p,
-        x,
-        y,
-        i,
-        lh,
-        tl,
-        str;
-      if (bounds && !bounds.intersects(item.bounds) ||
+      p,
+      x,
+      y,
+      i,
+      lh,
+      tl,
+      str;
+    if (bounds && !bounds.intersects(item.bounds) ||
       // bounds check
       opacity === 0 || item.fontSize <= 0 || item.text == null || item.text.length === 0) return;
-      context.font = font(item);
-      context.textAlign = item.align || 'left';
-      p = anchorPoint(item);
-      x = p.x1, y = p.y1;
-      if (item.angle) {
-        context.save();
-        context.translate(x, y);
-        context.rotate(item.angle * DegToRad);
-        x = y = 0; // reset x, y
-      }
+    context.font = font(item);
+    context.textAlign = item.align || 'left';
+    p = anchorPoint(item);
+    x = p.x1, y = p.y1;
+    if (item.angle) {
+      context.save();
+      context.translate(x, y);
+      context.rotate(item.angle * DegToRad);
+      x = y = 0; // reset x, y
+    }
 
-      x += item.dx || 0;
-      y += (item.dy || 0) + offset$2(item);
-      tl = textLines(item);
-      blend(context, item);
-      if (isArray(tl)) {
-        lh = lineHeight(item);
-        for (i = 0; i < tl.length; ++i) {
-          str = textValue(item, tl[i]);
-          if (item.fill && fill(context, item, opacity)) {
-            context.fillText(str, x, y);
-          }
-          if (item.stroke && stroke(context, item, opacity)) {
-            context.strokeText(str, x, y);
-          }
-          y += lh;
-        }
-      } else {
-        str = textValue(item, tl);
+    x += item.dx || 0;
+    y += (item.dy || 0) + offset$2(item);
+    tl = textLines(item);
+    blend(context, item);
+    if (isArray(tl)) {
+      lh = lineHeight(item);
+      for (i = 0; i < tl.length; ++i) {
+        str = textValue(item, tl[i]);
         if (item.fill && fill(context, item, opacity)) {
           context.fillText(str, x, y);
         }
         if (item.stroke && stroke(context, item, opacity)) {
           context.strokeText(str, x, y);
         }
+        y += lh;
       }
-      if (item.angle) context.restore();
-    });
+    } else {
+      str = textValue(item, tl);
+      if (item.fill && fill(context, item, opacity)) {
+        context.fillText(str, x, y);
+      }
+      if (item.stroke && stroke(context, item, opacity)) {
+        context.strokeText(str, x, y);
+      }
+    }
+    if (item.angle) context.restore();
+  });
   }
   function hit(context, item, x, y, gx, gy) {
     if (item.fontSize <= 0) return false;
@@ -17238,36 +17238,36 @@
     return mark.bounds = bounds;
   }
   const keys$1 = ['marktype', 'name', 'role', 'interactive', 'clip', 'items', 'zindex', 'x', 'y', 'width', 'height', 'align', 'baseline',
-  // layout
-  'fill', 'fillOpacity', 'opacity', 'blend',
-  // fill
-  'stroke', 'strokeOpacity', 'strokeWidth', 'strokeCap',
-  // stroke
-  'strokeDash', 'strokeDashOffset',
-  // stroke dash
-  'strokeForeground', 'strokeOffset',
-  // group
-  'startAngle', 'endAngle', 'innerRadius', 'outerRadius',
-  // arc
-  'cornerRadius', 'padAngle',
-  // arc, rect
-  'cornerRadiusTopLeft', 'cornerRadiusTopRight',
-  // rect, group
-  'cornerRadiusBottomLeft', 'cornerRadiusBottomRight', 'interpolate', 'tension', 'orient', 'defined',
-  // area, line
-  'url', 'aspect', 'smooth',
-  // image
-  'path', 'scaleX', 'scaleY',
-  // path
-  'x2', 'y2',
-  // rule
-  'size', 'shape',
-  // symbol
-  'text', 'angle', 'theta', 'radius', 'dir', 'dx', 'dy',
-  // text
-  'ellipsis', 'limit', 'lineBreak', 'lineHeight', 'font', 'fontSize', 'fontWeight', 'fontStyle', 'fontVariant',
-  // font
-  'description', 'aria', 'ariaRole', 'ariaRoleDescription' // aria
+    // layout
+    'fill', 'fillOpacity', 'opacity', 'blend',
+    // fill
+    'stroke', 'strokeOpacity', 'strokeWidth', 'strokeCap',
+    // stroke
+    'strokeDash', 'strokeDashOffset',
+    // stroke dash
+    'strokeForeground', 'strokeOffset',
+    // group
+    'startAngle', 'endAngle', 'innerRadius', 'outerRadius',
+    // arc
+    'cornerRadius', 'padAngle',
+    // arc, rect
+    'cornerRadiusTopLeft', 'cornerRadiusTopRight',
+    // rect, group
+    'cornerRadiusBottomLeft', 'cornerRadiusBottomRight', 'interpolate', 'tension', 'orient', 'defined',
+    // area, line
+    'url', 'aspect', 'smooth',
+    // image
+    'path', 'scaleX', 'scaleY',
+    // path
+    'x2', 'y2',
+    // rule
+    'size', 'shape',
+    // symbol
+    'text', 'angle', 'theta', 'radius', 'dir', 'dx', 'dy',
+    // text
+    'ellipsis', 'limit', 'lineBreak', 'lineHeight', 'font', 'fontSize', 'fontWeight', 'fontStyle', 'fontVariant',
+    // font
+    'description', 'aria', 'ariaRole', 'ariaRoleDescription' // aria
   ];
 
   function sceneToJSON(scene, indent) {
@@ -17540,10 +17540,10 @@
         context: 'href'
       }).then(opt => {
         const e = new MouseEvent(event.type, event),
-          a = domCreate(null, 'a');
-        for (const name in opt) a.setAttribute(name, opt[name]);
-        a.dispatchEvent(e);
-      }).catch(() => {/* do nothing */});
+        a = domCreate(null, 'a');
+      for (const name in opt) a.setAttribute(name, opt[name]);
+      a.dispatchEvent(e);
+    }).catch(() => {/* do nothing */});
     },
     /**
      * Handle tooltip display in response to an item.tooltip value.
@@ -17737,8 +17737,8 @@
         const call = r._call;
         r._ready = r._loader.ready().then(redraw => {
           if (redraw) call();
-          r._ready = null;
-        });
+        r._ready = null;
+      });
       }
       return p;
     },
@@ -18080,10 +18080,10 @@
     const h = this;
     h._hrefHandler = listener(h, (evt, item) => {
       if (item && item.href) h.handleHref(evt, item, item.href);
-    });
+  });
     h._tooltipHandler = listener(h, (evt, item) => {
       h.handleTooltip(evt, item, evt.type !== TooltipHideEvent);
-    });
+  });
   }
 
   // wrap an event listener for the SVG DOM
@@ -18162,23 +18162,23 @@
 
   // aria attribute generators for guide roles
   const AriaGuides = {
-    'axis': {
-      desc: 'axis',
-      caption: axisCaption
-    },
-    'legend': {
-      desc: 'legend',
-      caption: legendCaption
-    },
-    'title-text': {
-      desc: 'title',
-      caption: item => `Title text '${titleCaption(item)}'`
+      'axis': {
+        desc: 'axis',
+        caption: axisCaption
+      },
+      'legend': {
+        desc: 'legend',
+        caption: legendCaption
+      },
+      'title-text': {
+        desc: 'title',
+        caption: item => `Title text '${titleCaption(item)}'`
     },
     'title-subtitle': {
-      desc: 'subtitle',
+    desc: 'subtitle',
       caption: item => `Subtitle text '${titleCaption(item)}'`
-    }
-  };
+  }
+};
 
   // aria properties generated for mark item encoding channels
   const AriaEncode = {
@@ -18267,42 +18267,42 @@
     const stack = [],
       clear = () => outer = inner = '',
       push = tag => {
-        if (outer) {
-          buf += `${outer}>${inner}`;
-          clear();
+      if (outer) {
+        buf += `${outer}>${inner}`;
+        clear();
+      }
+      stack.push(tag);
+    },
+    attr = (name, value) => {
+      if (value != null) outer += ` ${name}="${attrText(value)}"`;
+      return m;
+    },
+    m = {
+      open(tag) {
+        push(tag);
+        outer = '<' + tag;
+        for (var _len = arguments.length, attrs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          attrs[_key - 1] = arguments[_key];
         }
-        stack.push(tag);
-      },
-      attr = (name, value) => {
-        if (value != null) outer += ` ${name}="${attrText(value)}"`;
+        for (const set of attrs) {
+          for (const key in set) attr(key, set[key]);
+        }
         return m;
       },
-      m = {
-        open(tag) {
-          push(tag);
-          outer = '<' + tag;
-          for (var _len = arguments.length, attrs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            attrs[_key - 1] = arguments[_key];
-          }
-          for (const set of attrs) {
-            for (const key in set) attr(key, set[key]);
-          }
-          return m;
-        },
-        close() {
-          const tag = stack.pop();
-          if (outer) {
-            buf += outer + (inner ? `>${inner}</${tag}>` : '/>');
-          } else {
-            buf += `</${tag}>`;
-          }
-          clear();
-          return m;
-        },
-        attr,
-        text: t => (inner += innerText(t), m),
-        toString: () => buf
-      };
+      close() {
+        const tag = stack.pop();
+        if (outer) {
+          buf += outer + (inner ? `>${inner}</${tag}>` : '/>');
+        } else {
+          buf += `</${tag}>`;
+        }
+        clear();
+        return m;
+      },
+      attr,
+      text: t => (inner += innerText(t), m),
+      toString: () => buf
+  };
     return m;
   }
   const serializeXML = node => _serialize(markup(), node) + '';
@@ -18319,7 +18319,7 @@
       const children = node.childNodes;
       for (const child of children) {
         child.nodeType === 3 // text node
-        ? m.text(child.nodeValue) : _serialize(m, child);
+          ? m.text(child.nodeValue) : _serialize(m, child);
       }
     }
     return m.close();
@@ -18516,7 +18516,7 @@
           dirtyParents(item, id);
           mark.items.forEach(i => {
             i.dirty = id;
-          });
+        });
         }
         if (mark.zdirty) continue; // handle in standard drawing pass
 
@@ -18771,8 +18771,8 @@
       idx = 0;
     visit(group, item => {
       prev = renderer.mark(el, item, prev);
-      ++idx;
-    });
+    ++idx;
+  });
 
     // remove any extraneous DOM elements
     domClear(el, 1 + idx);
@@ -18891,14 +18891,14 @@
           lh = lineHeight(item);
           value.forEach((t, i) => {
             const ts = domCreate(doc, 'tspan', svgns);
-            ts.__data__ = item; // data binding
-            ts.textContent = t;
-            if (i) {
-              ts.setAttribute('x', 0);
-              ts.setAttribute('dy', lh);
-            }
-            el.appendChild(ts);
-          });
+          ts.__data__ = item; // data binding
+          ts.textContent = t;
+          if (i) {
+            ts.setAttribute('x', 0);
+            ts.setAttribute('dy', lh);
+          }
+          el.appendChild(ts);
+        });
           values.text = key;
         }
       } else {
@@ -19110,9 +19110,9 @@
           this.sanitizeURL(href).then(attr => {
             // rewrite to use xlink namespace
             attr['xlink:href'] = attr.href;
-            attr.href = null;
-            (this._hrefs || (this._hrefs = {}))[href] = attr;
-          });
+          attr.href = null;
+          (this._hrefs || (this._hrefs = {}))[href] = attr;
+        });
         }
       }
       return null;
@@ -19127,8 +19127,8 @@
     attr(scene, item, attrs, tag) {
       const object = {},
         emit = (name, value, ns, prefixed) => {
-          object[prefixed || name] = value;
-        };
+        object[prefixed || name] = value;
+      };
 
       // apply mark specific attributes
       if (Array.isArray(attrs)) {
@@ -19466,7 +19466,7 @@
         markBounds = boundItem(mark, bound);
         mark.items.forEach(item => {
           item.bounds.clear().union(markBounds);
-        });
+      });
       } else if (type === Group || _.modified()) {
         // operator parameters modified -> re-bound all items
         // updates group bounds in response to modified group content
@@ -19486,12 +19486,12 @@
         rebound = pulse.changed(pulse.REM);
         pulse.visit(pulse.ADD, item => {
           markBounds.union(boundItem(item, bound));
-        });
+      });
         pulse.visit(pulse.MOD, item => {
           rebound = rebound || markBounds.alignsWith(item.bounds);
-          view.dirty(item);
-          markBounds.union(boundItem(item, bound));
-        });
+        view.dirty(item);
+        markBounds.union(boundItem(item, bound));
+      });
         if (rebound) {
           markBounds.clear();
           mark.items.forEach(item => markBounds.union(item.bounds));
@@ -19624,11 +19624,11 @@
   }
   const methods = {
     parity: items => items.filter((item, i) => i % 2 ? item.opacity = 0 : 1),
-    greedy: (items, sep) => {
-      let a;
-      return items.filter((b, i) => !i || !intersect$1(a.bounds, b.bounds, sep) ? (a = b, 1) : b.opacity = 0);
-    }
-  };
+  greedy: (items, sep) => {
+    let a;
+    return items.filter((b, i) => !i || !intersect$1(a.bounds, b.bounds, sep) ? (a = b, 1) : b.opacity = 0);
+  }
+};
 
   // compute bounding box intersection
   // including padding pixels of separation
@@ -19703,14 +19703,14 @@
         test = boundTest(_.boundScale, _.boundOrient, +_.boundTolerance);
         source.forEach(item => {
           if (!test(item)) item.opacity = 0;
-        });
+      });
       }
 
       // re-calculate mark bounds
       const bounds = items[0].mark.bounds.clear();
       source.forEach(item => {
         if (item.opacity) bounds.union(item.bounds);
-      });
+    });
       return pulse;
     }
   });
@@ -19745,10 +19745,10 @@
   function axisIndices(datum) {
     let index = +datum.grid;
     return [datum.ticks ? index++ : -1,
-    // ticks index
-    datum.labels ? index++ : -1,
-    // labels index
-    index + +datum.domain // title index
+      // ticks index
+      datum.labels ? index++ : -1,
+      // labels index
+      index + +datum.domain // title index
     ];
   }
 
@@ -20248,7 +20248,7 @@
     let max = -Infinity;
     legends.forEach(item => {
       if (item.offset != null) max = Math.max(max, item.offset);
-    });
+  });
     return max > -Infinity ? max : value;
   }
   function legendParams(g, orient, config, xb, yb, w, h) {
@@ -20441,14 +20441,14 @@
     // get max widths for each column
     const widths = entries.reduce((w, g) => {
       w[g.column] = Math.max(g.bounds.x2 - g.x, w[g.column] || 0);
-      return w;
-    }, {});
+    return w;
+  }, {});
 
     // set dimensions of legend entry groups
     entries.forEach(g => {
       g.width = widths[g.column];
-      g.height = g.bounds.y2 - g.y;
-    });
+    g.height = g.bounds.y2 - g.y;
+  });
   }
   function titleLayout(view, mark, width, height, viewBounds) {
     var group = mark.items[0],
@@ -20547,8 +20547,8 @@
       const view = pulse.dataflow;
       _.mark.items.forEach(group => {
         if (_.layout) trellisLayout(view, group, _.layout);
-        layoutGroup(view, group, _);
-      });
+      layoutGroup(view, group, _);
+    });
       return shouldReflow(_.mark.group) ? pulse.reflow() : pulse;
     }
   });
@@ -20611,8 +20611,8 @@
       const l = {};
       legends.forEach(item => {
         orient = item.orient || Right$1;
-        if (orient !== None) (l[orient] || (l[orient] = [])).push(item);
-      });
+      if (orient !== None) (l[orient] || (l[orient] = [])).push(item);
+    });
 
       // perform grid layout for each orient group
       for (const orient in l) {
@@ -20623,29 +20623,29 @@
       // update view bounds
       legends.forEach(item => {
         const b = item.bounds;
-        if (!b.equals(item._bounds)) {
-          item.bounds = item._bounds;
-          view.dirty(item); // dirty previous location
-          item.bounds = b;
-          view.dirty(item);
+      if (!b.equals(item._bounds)) {
+        item.bounds = item._bounds;
+        view.dirty(item); // dirty previous location
+        item.bounds = b;
+        view.dirty(item);
+      }
+      if (_.autosize && (_.autosize.type === Fit || _.autosize.type === FitX || _.autosize.type === FitY)) {
+        // For autosize fit, incorporate the orthogonal dimension only.
+        // Legends that overrun the chart area will then be clipped;
+        // otherwise the chart area gets reduced to nothing!
+        switch (item.orient) {
+          case Left$1:
+          case Right$1:
+            viewBounds.add(b.x1, 0).add(b.x2, 0);
+            break;
+          case Top$1:
+          case Bottom$1:
+            viewBounds.add(0, b.y1).add(0, b.y2);
         }
-        if (_.autosize && (_.autosize.type === Fit || _.autosize.type === FitX || _.autosize.type === FitY)) {
-          // For autosize fit, incorporate the orthogonal dimension only.
-          // Legends that overrun the chart area will then be clipped;
-          // otherwise the chart area gets reduced to nothing!
-          switch (item.orient) {
-            case Left$1:
-            case Right$1:
-              viewBounds.add(b.x1, 0).add(b.x2, 0);
-              break;
-            case Top$1:
-            case Bottom$1:
-              viewBounds.add(0, b.y1).add(0, b.y2);
-          }
-        } else {
-          viewBounds.union(b);
-        }
-      });
+      } else {
+        viewBounds.union(b);
+      }
+    });
     }
 
     // combine bounding boxes
@@ -20808,39 +20808,39 @@
       }
       pulse.visit(pulse.ADD, t => {
         const k = key(t);
-        let x = map.get(k);
-        if (x) {
-          if (x.exit) {
-            map.empty--;
-            out.add.push(x);
-          } else {
-            out.mod.push(x);
-          }
-        } else {
-          x = item(t);
-          map.set(k, x);
+      let x = map.get(k);
+      if (x) {
+        if (x.exit) {
+          map.empty--;
           out.add.push(x);
-        }
-        x.datum = t;
-        x.exit = false;
-      });
-      pulse.visit(pulse.MOD, t => {
-        const k = key(t),
-          x = map.get(k);
-        if (x) {
-          x.datum = t;
+        } else {
           out.mod.push(x);
         }
-      });
+      } else {
+        x = item(t);
+        map.set(k, x);
+        out.add.push(x);
+      }
+      x.datum = t;
+      x.exit = false;
+    });
+      pulse.visit(pulse.MOD, t => {
+        const k = key(t),
+        x = map.get(k);
+      if (x) {
+        x.datum = t;
+        out.mod.push(x);
+      }
+    });
       pulse.visit(pulse.REM, t => {
         const k = key(t),
-          x = map.get(k);
-        if (t === x.datum && !x.exit) {
-          out.rem.push(x);
-          x.exit = true;
-          ++map.empty;
-        }
-      });
+        x = map.get(k);
+      if (t === x.datum && !x.exit) {
+        out.rem.push(x);
+        x.exit = true;
+        ++map.empty;
+      }
+    });
       if (pulse.changed(pulse.ADD_MOD)) out.modifies('datum');
       if (pulse.clean() || _.clean && map.empty > df.cleanThreshold) {
         df.runAfter(map.clean);
@@ -20892,21 +20892,21 @@
       if (pulse.changed(pulse.ADD)) {
         pulse.visit(pulse.ADD, t => {
           enter(t, _);
-          update(t, _);
-        });
+        update(t, _);
+      });
         out.modifies(enter.output);
         out.modifies(update.output);
         if (set !== falsy && set !== update) {
           pulse.visit(pulse.ADD, t => {
             set(t, _);
-          });
+        });
           out.modifies(set.output);
         }
       }
       if (pulse.changed(pulse.REM) && exit !== falsy) {
         pulse.visit(pulse.REM, t => {
           exit(t, _);
-        });
+      });
         out.modifies(exit.output);
       }
       if (reenter || set !== falsy) {
@@ -20914,13 +20914,13 @@
         if (reenter) {
           pulse.visit(flag, t => {
             const mod = enter(t, _) || fmod;
-            if (set(t, _) || mod) out.mod.push(t);
-          });
+          if (set(t, _) || mod) out.mod.push(t);
+        });
           if (out.mod.length) out.modifies(enter.output);
         } else {
           pulse.visit(flag, t => {
             if (set(t, _) || fmod) out.mod.push(t);
-          });
+        });
         }
         if (out.mod.length) out.modifies(set.output);
       }
@@ -21104,7 +21104,7 @@
       }
       pulse.visit(pulse.SOURCE, t => {
         t[as] = path(sx(t), sy(t), tx(t), ty(t));
-      });
+    });
       return pulse.reflow(_.modified()).modifies(as);
     }
   });
@@ -23277,22 +23277,22 @@
     point: function (x, y) {
       switch (this._point) {
         case 0:
-          {
-            this._context.moveTo(x, y);
-            this._point = 1;
-            break;
-          }
+        {
+          this._context.moveTo(x, y);
+          this._point = 1;
+          break;
+        }
         case 1:
-          {
-            this._context.lineTo(x, y);
-            break;
-          }
+        {
+          this._context.lineTo(x, y);
+          break;
+        }
         default:
-          {
-            this._context.moveTo(x + this._radius, y);
-            this._context.arc(x, y, this._radius, 0, tau$1);
-            break;
-          }
+        {
+          this._context.moveTo(x + this._radius, y);
+          this._context.arc(x, y, this._radius, 0, tau$1);
+          break;
+        }
       }
     },
     result: noop$2
@@ -23364,32 +23364,32 @@
     point(x, y) {
       switch (this._point) {
         case 0:
-          {
-            this._append`M${x},${y}`;
-            this._point = 1;
-            break;
-          }
+        {
+          this._append`M${x},${y}`;
+          this._point = 1;
+          break;
+        }
         case 1:
-          {
-            this._append`L${x},${y}`;
-            break;
-          }
+        {
+          this._append`L${x},${y}`;
+          break;
+        }
         default:
-          {
-            this._append`M${x},${y}`;
-            if (this._radius !== cacheRadius || this._append !== cacheAppend) {
-              const r = this._radius;
-              const s = this._;
-              this._ = ""; // stash the old string so we can cache the circle path fragment
-              this._append`m0,${r}a${r},${r} 0 1,1 0,${-2 * r}a${r},${r} 0 1,1 0,${2 * r}z`;
-              cacheRadius = r;
-              cacheAppend = this._append;
-              cacheCircle = this._;
-              this._ = s;
-            }
-            this._ += cacheCircle;
-            break;
+        {
+          this._append`M${x},${y}`;
+          if (this._radius !== cacheRadius || this._append !== cacheAppend) {
+            const r = this._radius;
+            const s = this._;
+            this._ = ""; // stash the old string so we can cache the circle path fragment
+            this._append`m0,${r}a${r},${r} 0 1,1 0,${-2 * r}a${r},${r} 0 1,1 0,${2 * r}z`;
+            cacheRadius = r;
+            cacheAppend = this._append;
+            cacheCircle = this._;
+            this._ = s;
           }
+          this._ += cacheCircle;
+          break;
+        }
       }
     }
     result() {
@@ -23586,8 +23586,8 @@
           dy2 = y2 - y0,
           dz = dy * dx2 - dx * dy2;
         if (dz * dz / d2 > delta2 // perpendicular projected distance
-        || abs$1((dx * dx2 + dy * dy2) / d2 - 0.5) > 0.3 // midpoint close to an end
-        || a0 * a1 + b0 * b1 + c0 * c1 < cosMinDistance) {
+          || abs$1((dx * dx2 + dy * dy2) / d2 - 0.5) > 0.3 // midpoint close to an end
+          || a0 * a1 + b0 * b1 + c0 * c1 < cosMinDistance) {
           // angular distance
           resampleLineTo(x0, y0, lambda0, a0, b0, c0, x2, y2, lambda2, a /= m, b /= m, c, depth, stream);
           stream.point(x2, y2);
@@ -24337,10 +24337,10 @@
 
   const defaultPath = geoPath();
   const projectionProperties = [
-  // standard properties in d3-geo
-  'clipAngle', 'clipExtent', 'scale', 'translate', 'center', 'rotate', 'parallels', 'precision', 'reflectX', 'reflectY',
-  // extended properties in d3-geo-projections
-  'coefficient', 'distance', 'fraction', 'lobes', 'parallel', 'radius', 'ratio', 'spacing', 'tilt'];
+    // standard properties in d3-geo
+    'clipAngle', 'clipExtent', 'scale', 'translate', 'center', 'rotate', 'parallels', 'precision', 'reflectX', 'reflectY',
+    // extended properties in d3-geo-projections
+    'coefficient', 'distance', 'fraction', 'lobes', 'parallel', 'radius', 'ratio', 'spacing', 'tilt'];
 
   /**
    * Augment projections with their type and a copy method.
@@ -24354,7 +24354,7 @@
         const c = projection();
         projectionProperties.forEach(prop => {
           if (p[prop]) c[prop](p[prop]());
-        });
+      });
         c.path.pointRadius(p.path.pointRadius());
         return c;
       };
@@ -24419,16 +24419,16 @@
         holes = [];
       isorings(values, value, ring => {
         smooth(ring, values, value);
-        if (area(ring) > 0) polygons.push([ring]);else holes.push(ring);
-      });
+      if (area(ring) > 0) polygons.push([ring]);else holes.push(ring);
+    });
       holes.forEach(hole => {
         for (var i = 0, n = polygons.length, polygon; i < n; ++i) {
-          if (contains((polygon = polygons[i])[0], hole) !== -1) {
-            polygon.push(hole);
-            return;
-          }
+        if (contains((polygon = polygons[i])[0], hole) !== -1) {
+          polygon.push(hole);
+          return;
         }
-      });
+      }
+    });
       return {
         type: 'MultiPolygon',
         value: value,
@@ -24541,20 +24541,20 @@
     function smoothLinear(ring, values, value) {
       ring.forEach(point => {
         var x = point[0],
-          y = point[1],
-          xt = x | 0,
-          yt = y | 0,
-          v0,
-          v1 = values[yt * dx + xt];
-        if (x > 0 && x < dx && xt === x) {
-          v0 = values[yt * dx + xt - 1];
-          point[0] = x + (value - v0) / (v1 - v0) - 0.5;
-        }
-        if (y > 0 && y < dy && yt === y) {
-          v0 = values[(yt - 1) * dx + xt];
-          point[1] = y + (value - v0) / (v1 - v0) - 0.5;
-        }
-      });
+        y = point[1],
+        xt = x | 0,
+        yt = y | 0,
+        v0,
+        v1 = values[yt * dx + xt];
+      if (x > 0 && x < dx && xt === x) {
+        v0 = values[yt * dx + xt - 1];
+        point[0] = x + (value - v0) / (v1 - v0) - 0.5;
+      }
+      if (y > 0 && y < dy && yt === y) {
+        v0 = values[(yt - 1) * dx + xt];
+        point[1] = y + (value - v0) / (v1 - v0) - 0.5;
+      }
+    });
     }
     contours.contour = contour;
     contours.size = function (_) {
@@ -24714,19 +24714,19 @@
       source.forEach(t => {
         const grid = field(t);
 
-        // generate contour paths in GeoJSON format
-        const paths = contour.size([grid.width, grid.height])(grid.values, isArray(tz) ? tz : tz(grid.values));
+      // generate contour paths in GeoJSON format
+      const paths = contour.size([grid.width, grid.height])(grid.values, isArray(tz) ? tz : tz(grid.values));
 
-        // adjust contour path coordinates as needed
-        transformPaths(paths, grid, t, _);
+      // adjust contour path coordinates as needed
+      transformPaths(paths, grid, t, _);
 
-        // ingest; copy source data properties to output
-        paths.forEach(p => {
-          values.push(rederive(t, ingest$1(as != null ? {
-            [as]: p
-          } : p)));
-        });
-      });
+      // ingest; copy source data properties to output
+      paths.forEach(p => {
+        values.push(rederive(t, ingest$1(as != null ? {
+          [as]: p
+        } : p)));
+    });
+    });
       if (this.value) out.rem = this.value;
       this.value = out.source = out.add = values;
       return out;
@@ -24804,11 +24804,11 @@
       let values = values0;
       data.forEach(d => {
         const xi = ox + (+x(d) >> k),
-          yi = oy + (+y(d) >> k);
-        if (xi >= 0 && xi < n && yi >= 0 && yi < m) {
-          values0[xi + yi * n] += +weight(d);
-        }
-      });
+        yi = oy + (+y(d) >> k);
+      if (xi >= 0 && xi < n && yi >= 0 && yi < m) {
+        values0[xi + yi * n] += +weight(d);
+      }
+    });
       if (rx > 0 && ry > 0) {
         blurX(n, m, values0, values1, rx);
         blurY(n, m, values1, values0, ry);
@@ -25197,11 +25197,11 @@
       if (lon && lat) {
         pulse.visit(flag, t => {
           var x = lon(t),
-            y = lat(t);
-          if (x != null && y != null && (x = +x) === x && (y = +y) === y) {
-            points.push([x, y]);
-          }
-        });
+          y = lat(t);
+        if (x != null && y != null && (x = +x) === x && (y = +y) === y) {
+          points.push([x, y]);
+        }
+      });
         features = features.concat({
           type: Feature,
           geometry: {
@@ -25570,19 +25570,19 @@
           $y: 0,
           $value: 0,
           $max: shared ? max$2(source.map(t => max$2(field(t).values))) : 0
-        };
+    };
       source.forEach(t => {
         const v = field(t);
 
-        // build proxy data object
-        const o = extend$1({}, t, obj);
-        // set maximum value if not globally shared
-        if (!shared) o.$max = max$2(v.values || []);
+      // build proxy data object
+      const o = extend$1({}, t, obj);
+      // set maximum value if not globally shared
+      if (!shared) o.$max = max$2(v.values || []);
 
-        // generate canvas image
-        // optimize color/opacity if not pixel-dependent
-        t[as] = toCanvas(v, o, color.dep ? color : constant$4(color(o)), opacity.dep ? opacity : constant$4(opacity(o)));
-      });
+      // generate canvas image
+      // optimize color/opacity if not pixel-dependent
+      t[as] = toCanvas(v, o, color.dep ? color : constant$4(color(o)), opacity.dep ? opacity : constant$4(opacity(o)));
+    });
       return pulse.reflow(true).modifies(as);
     }
   });
@@ -25670,11 +25670,11 @@
         this.value = proj = create$1(_.type);
         projectionProperties.forEach(prop => {
           if (_[prop] != null) set$1(proj, prop, _[prop]);
-        });
+      });
       } else {
         projectionProperties.forEach(prop => {
           if (_.modified(prop)) set$1(proj, prop, _[prop]);
-        });
+      });
       }
       if (_.pointRadius != null) proj.path.pointRadius(_.pointRadius);
       if (_.fit) fit(proj, _);
@@ -25698,7 +25698,7 @@
     return data.length === 1 ? data[0] : {
       type: FeatureCollection,
       features: data.reduce((a, f) => a.concat(featurize(f)), [])
-    };
+  };
   }
   function featurize(f) {
     return f.type === FeatureCollection ? f.features : array$5(f).filter(d => d != null).map(d => d.type === Feature ? d : {
@@ -26304,7 +26304,7 @@
         n = nodes.length,
         m = links.length,
         nodeById = new Map(nodes.map((d, i) => [id(d, i, nodes), d])),
-        link;
+      link;
       for (i = 0, count = new Array(n); i < m; ++i) {
         link = links[i], link.index = i;
         if (typeof link.source !== "object") link.source = find$1(nodeById, link.source);
@@ -26355,7 +26355,7 @@
 
   var noop = {
     value: () => {}
-  };
+};
   function dispatch() {
     for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
       if (!(t = arguments[i] + "") || t in _ || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
@@ -27502,7 +27502,7 @@
 
   function array$2 (x) {
     return typeof x === "object" && "length" in x ? x // Array, TypedArray, NodeList, array-like
-    : Array.from(x); // Map, Set, iterable, string, or anything else
+      : Array.from(x); // Map, Set, iterable, string, or anything else
   }
 
   function shuffle(array, random) {
@@ -28467,8 +28467,8 @@
     const map = {};
     tree.each(node => {
       const t = node.data;
-      if (filter(t)) map[key(t)] = node;
-    });
+    if (filter(t)) map[key(t)] = node;
+  });
     tree.lookup = map;
     return tree;
   }
@@ -28516,28 +28516,28 @@
         if (tree) {
           tree.each(node => {
             if (node.children && isTuple(node.data)) {
-              out.rem.push(node.data);
-            }
-          });
+            out.rem.push(node.data);
+          }
+        });
         }
 
         // generate new tree structure
         this.value = tree = hierarchy({
           values: array$5(_.keys).reduce((n, k) => {
             n.key(k);
-            return n;
-          }, nest()).entries(out.source)
-        }, children$1);
+        return n;
+      }, nest()).entries(out.source)
+      }, children$1);
 
         // collect nodes to add
         if (gen) {
           tree.each(node => {
             if (node.children) {
-              node = ingest$1(node.data);
-              out.add.push(node);
-              out.source.push(node);
-            }
-          });
+            node = ingest$1(node.data);
+            out.add.push(node);
+            out.source.push(node);
+          }
+        });
         }
 
         // build lookup table
@@ -28551,8 +28551,8 @@
     const keys = [],
       nest = {
         entries: array => entries(apply(array, 0), 0),
-        key: d => (keys.push(d), nest)
-      };
+      key: d => (keys.push(d), nest)
+  };
     function apply(array, depth) {
       if (depth >= keys.length) {
         return array;
@@ -28885,14 +28885,14 @@
         // generate links for all edges incident on valid tuples
         tree.each(node => {
           const t = node.data,
-            p = node.parent && node.parent.data;
-          if (p && lut[tupleid(t)] && lut[tupleid(p)]) {
-            out.add.push(ingest$1({
-              source: p,
-              target: t
-            }));
-          }
-        });
+          p = node.parent && node.parent.data;
+        if (p && lut[tupleid(t)] && lut[tupleid(p)]) {
+          out.add.push(ingest$1({
+            source: p,
+            target: t
+          }));
+        }
+      });
         this.value = out.add;
       } else if (pulse.changed(pulse.MOD)) {
         // build lookup table of modified tuples
@@ -28901,9 +28901,9 @@
         // gather links incident on modified tuples
         links.forEach(link => {
           if (lut[tupleid(link.source)] || lut[tupleid(link.target)]) {
-            out.mod.push(link);
-          }
-        });
+          out.mod.push(link);
+        }
+      });
       }
       return out;
     }
@@ -29083,7 +29083,7 @@
     if (type === 'group') {
       items.forEach(group => {
         group.items.forEach(mark => draw(context, mark.items, interior));
-      });
+    });
     } else {
       Marks[type].draw(context, {
         items: interior ? items.map(prepare) : items
@@ -29135,76 +29135,76 @@
     return {
       array: array,
       get: (x, y) => {
-        const index = y * w + x;
-        return array[index >>> DIV] & 1 << (index & MOD);
-      },
-      set: (x, y) => {
-        const index = y * w + x;
-        _set(index >>> DIV, 1 << (index & MOD));
-      },
-      clear: (x, y) => {
-        const index = y * w + x;
-        _clear(index >>> DIV, ~(1 << (index & MOD)));
-      },
-      getRange: (x, y, x2, y2) => {
-        let r = y2,
-          start,
-          end,
-          indexStart,
-          indexEnd;
-        for (; r >= y; --r) {
-          start = r * w + x;
-          end = r * w + x2;
-          indexStart = start >>> DIV;
-          indexEnd = end >>> DIV;
-          if (indexStart === indexEnd) {
-            if (array[indexStart] & RIGHT0[start & MOD] & RIGHT1[(end & MOD) + 1]) {
-              return true;
-            }
-          } else {
-            if (array[indexStart] & RIGHT0[start & MOD]) return true;
-            if (array[indexEnd] & RIGHT1[(end & MOD) + 1]) return true;
-            for (let i = indexStart + 1; i < indexEnd; ++i) {
-              if (array[i]) return true;
-            }
+      const index = y * w + x;
+    return array[index >>> DIV] & 1 << (index & MOD);
+  },
+    set: (x, y) => {
+      const index = y * w + x;
+      _set(index >>> DIV, 1 << (index & MOD));
+    },
+    clear: (x, y) => {
+      const index = y * w + x;
+      _clear(index >>> DIV, ~(1 << (index & MOD)));
+    },
+    getRange: (x, y, x2, y2) => {
+      let r = y2,
+        start,
+        end,
+        indexStart,
+        indexEnd;
+      for (; r >= y; --r) {
+        start = r * w + x;
+        end = r * w + x2;
+        indexStart = start >>> DIV;
+        indexEnd = end >>> DIV;
+        if (indexStart === indexEnd) {
+          if (array[indexStart] & RIGHT0[start & MOD] & RIGHT1[(end & MOD) + 1]) {
+            return true;
+          }
+        } else {
+          if (array[indexStart] & RIGHT0[start & MOD]) return true;
+          if (array[indexEnd] & RIGHT1[(end & MOD) + 1]) return true;
+          for (let i = indexStart + 1; i < indexEnd; ++i) {
+            if (array[i]) return true;
           }
         }
-        return false;
-      },
-      setRange: (x, y, x2, y2) => {
-        let start, end, indexStart, indexEnd, i;
-        for (; y <= y2; ++y) {
-          start = y * w + x;
-          end = y * w + x2;
-          indexStart = start >>> DIV;
-          indexEnd = end >>> DIV;
-          if (indexStart === indexEnd) {
-            _set(indexStart, RIGHT0[start & MOD] & RIGHT1[(end & MOD) + 1]);
-          } else {
-            _set(indexStart, RIGHT0[start & MOD]);
-            _set(indexEnd, RIGHT1[(end & MOD) + 1]);
-            for (i = indexStart + 1; i < indexEnd; ++i) _set(i, 0xffffffff);
-          }
+      }
+      return false;
+    },
+    setRange: (x, y, x2, y2) => {
+      let start, end, indexStart, indexEnd, i;
+      for (; y <= y2; ++y) {
+        start = y * w + x;
+        end = y * w + x2;
+        indexStart = start >>> DIV;
+        indexEnd = end >>> DIV;
+        if (indexStart === indexEnd) {
+          _set(indexStart, RIGHT0[start & MOD] & RIGHT1[(end & MOD) + 1]);
+        } else {
+          _set(indexStart, RIGHT0[start & MOD]);
+          _set(indexEnd, RIGHT1[(end & MOD) + 1]);
+          for (i = indexStart + 1; i < indexEnd; ++i) _set(i, 0xffffffff);
         }
-      },
-      clearRange: (x, y, x2, y2) => {
-        let start, end, indexStart, indexEnd, i;
-        for (; y <= y2; ++y) {
-          start = y * w + x;
-          end = y * w + x2;
-          indexStart = start >>> DIV;
-          indexEnd = end >>> DIV;
-          if (indexStart === indexEnd) {
-            _clear(indexStart, RIGHT1[start & MOD] | RIGHT0[(end & MOD) + 1]);
-          } else {
-            _clear(indexStart, RIGHT1[start & MOD]);
-            _clear(indexEnd, RIGHT0[(end & MOD) + 1]);
-            for (i = indexStart + 1; i < indexEnd; ++i) _clear(i, 0);
-          }
+      }
+    },
+    clearRange: (x, y, x2, y2) => {
+      let start, end, indexStart, indexEnd, i;
+      for (; y <= y2; ++y) {
+        start = y * w + x;
+        end = y * w + x2;
+        indexStart = start >>> DIV;
+        indexEnd = end >>> DIV;
+        if (indexStart === indexEnd) {
+          _clear(indexStart, RIGHT1[start & MOD] | RIGHT0[(end & MOD) + 1]);
+        } else {
+          _clear(indexStart, RIGHT1[start & MOD]);
+          _clear(indexEnd, RIGHT0[(end & MOD) + 1]);
+          for (i = indexStart + 1; i < indexEnd; ++i) _clear(i, 0);
         }
-      },
-      outOfBounds: (x, y, x2, y2) => x < 0 || y < 0 || y2 >= h || x2 >= w
-    };
+      }
+    },
+    outOfBounds: (x, y, x2, y2) => x < 0 || y < 0 || y2 >= h || x2 >= w
+  };
   }
   function scaler(width, height, padding) {
     const ratio = Math.max(1, Math.sqrt(width * height / 1e6)),
@@ -29677,19 +29677,19 @@
     // prepare text mark data for placing
     const data = texts.map(d => {
       const textWidth = infPadding ? textMetrics.width(d, d.text) : undefined;
-      maxTextWidth = Math.max(maxTextWidth, textWidth);
-      maxTextHeight = Math.max(maxTextHeight, d.fontSize);
-      return {
-        datum: d,
-        opacity: 0,
-        x: undefined,
-        y: undefined,
-        align: undefined,
-        baseline: undefined,
-        boundary: boundary(d),
-        textWidth
-      };
-    });
+    maxTextWidth = Math.max(maxTextWidth, textWidth);
+    maxTextHeight = Math.max(maxTextHeight, d.fontSize);
+    return {
+      datum: d,
+      opacity: 0,
+      x: undefined,
+      y: undefined,
+      align: undefined,
+      baseline: undefined,
+      boundary: boundary(d),
+      textWidth
+    };
+  });
     padding = padding === null || padding === Infinity ? Math.max(maxTextWidth, maxTextHeight) + Math.max(...offset) : padding;
     const $ = scaler(size[0], size[1], padding);
     let bitmaps;
@@ -29876,12 +29876,12 @@
       labelLayout(pulse.materialize(pulse.SOURCE).source || [], _.size, _.sort, array$5(_.offset == null ? 1 : _.offset), array$5(_.anchor || Anchors), _.avoidMarks || [], _.avoidBaseMark !== false, _.lineAnchor || 'end', _.markIndex || 0, _.padding === undefined ? 0 : _.padding, _.method || 'naive').forEach(l => {
         // write layout results to data stream
         const t = l.datum;
-        t[as[0]] = l.x;
-        t[as[1]] = l.y;
-        t[as[2]] = l.opacity;
-        t[as[3]] = l.align;
-        t[as[4]] = l.baseline;
-      });
+      t[as[0]] = l.x;
+      t[as[1]] = l.y;
+      t[as[2]] = l.opacity;
+      t[as[3]] = l.align;
+      t[as[4]] = l.baseline;
+    });
       return pulse.reflow(mod).modifies(as);
     }
   });
@@ -29973,15 +29973,15 @@
           values = [];
         groups.forEach(g => {
           loess(g, _.x, _.y, _.bandwidth || 0.3).forEach(p => {
-            const t = {};
-            for (let i = 0; i < m; ++i) {
-              t[names[i]] = g.dims[i];
-            }
-            t[as[0]] = p[0];
-            t[as[1]] = p[1];
-            values.push(ingest$1(t));
-          });
-        });
+          const t = {};
+        for (let i = 0; i < m; ++i) {
+          t[names[i]] = g.dims[i];
+        }
+        t[as[0]] = p[0];
+        t[as[1]] = p[1];
+        values.push(ingest$1(t));
+      });
+      });
         if (this.value) out.rem = this.value;
         this.value = out.add = out.source = values;
       }
@@ -30078,38 +30078,38 @@
         }
         groups.forEach(g => {
           const n = g.length;
-          if (n <= dof) {
-            pulse.dataflow.warn('Skipping regression with more parameters than data points.');
-            return;
+        if (n <= dof) {
+          pulse.dataflow.warn('Skipping regression with more parameters than data points.');
+          return;
+        }
+        const model = fit(g, _.x, _.y, order);
+        if (_.params) {
+          // if parameter vectors requested return those
+          values.push(ingest$1({
+            keys: g.dims,
+            coef: model.coef,
+            rSquared: model.rSquared
+          }));
+          return;
+        }
+        const dom = domain || extent(g, _.x),
+          add = p => {
+          const t = {};
+          for (let i = 0; i < names.length; ++i) {
+            t[names[i]] = g.dims[i];
           }
-          const model = fit(g, _.x, _.y, order);
-          if (_.params) {
-            // if parameter vectors requested return those
-            values.push(ingest$1({
-              keys: g.dims,
-              coef: model.coef,
-              rSquared: model.rSquared
-            }));
-            return;
-          }
-          const dom = domain || extent(g, _.x),
-            add = p => {
-              const t = {};
-              for (let i = 0; i < names.length; ++i) {
-                t[names[i]] = g.dims[i];
-              }
-              t[as[0]] = p[0];
-              t[as[1]] = p[1];
-              values.push(ingest$1(t));
-            };
-          if (method === 'linear') {
-            // for linear regression we only need the end points
-            dom.forEach(x => add([x, model.predict(x)]));
-          } else {
-            // otherwise return trend line sample points
-            sampleCurve(model.predict, dom, 25, 200).forEach(add);
-          }
-        });
+          t[as[0]] = p[0];
+          t[as[1]] = p[1];
+          values.push(ingest$1(t));
+        };
+        if (method === 'linear') {
+          // for linear regression we only need the end points
+          dom.forEach(x => add([x, model.predict(x)]));
+        } else {
+          // otherwise return trend line sample points
+          sampleCurve(model.predict, dom, 25, 200).forEach(add);
+        }
+      });
         if (this.value) out.rem = this.value;
         this.value = out.add = out.source = values;
       }
@@ -30814,8 +30814,8 @@
   class Path {
     constructor() {
       this._x0 = this._y0 =
-      // start of current subpath
-      this._x1 = this._y1 = null; // end of current subpath
+        // start of current subpath
+        this._x1 = this._y1 = null; // end of current subpath
       this._ = "";
     }
     moveTo(x, y) {
@@ -32094,9 +32094,9 @@
       }
       data.forEach(t => {
         t[as[0]] = NaN;
-        t[as[1]] = NaN;
-        t[as[3]] = 0;
-      });
+      t[as[1]] = NaN;
+      t[as[3]] = 0;
+    });
 
       // configure layout
       const words = layout.words(data).text(_.text).size(_.size || [500, 500]).padding(_.padding || 1).spiral(_.spiral || 'archimedean').rotate(_.rotate || 0).font(_.font || 'sans-serif').fontStyle(_.fontStyle || 'normal').fontWeight(_.fontWeight || 'normal').fontSize(fontSize).random(exports.random).layout();
@@ -32141,63 +32141,63 @@
       data: () => data,
       seen: () => seen = lengthen(seen, data.length),
       add(array) {
-        for (let i = 0, j = data.length, n = array.length, t; i < n; ++i) {
-          t = array[i];
+      for (let i = 0, j = data.length, n = array.length, t; i < n; ++i) {
+        t = array[i];
+        t._index = j++;
+        data.push(t);
+      }
+    },
+    remove(num, map) {
+      // map: index -> boolean (true => remove)
+      const n = data.length,
+        copy = Array(n - num),
+        reindex = data; // reuse old data array for index map
+      let t, i, j;
+
+      // seek forward to first removal
+      for (i = 0; !map[i] && i < n; ++i) {
+        copy[i] = data[i];
+        reindex[i] = i;
+      }
+
+      // condense arrays
+      for (j = i; i < n; ++i) {
+        t = data[i];
+        if (!map[i]) {
+          reindex[i] = j;
+          curr[j] = curr[i];
+          prev[j] = prev[i];
+          copy[j] = t;
           t._index = j++;
-          data.push(t);
+        } else {
+          reindex[i] = -1;
         }
-      },
-      remove(num, map) {
-        // map: index -> boolean (true => remove)
-        const n = data.length,
-          copy = Array(n - num),
-          reindex = data; // reuse old data array for index map
-        let t, i, j;
+        curr[i] = 0; // clear unused bits
+      }
 
-        // seek forward to first removal
-        for (i = 0; !map[i] && i < n; ++i) {
-          copy[i] = data[i];
-          reindex[i] = i;
-        }
-
-        // condense arrays
-        for (j = i; i < n; ++i) {
-          t = data[i];
-          if (!map[i]) {
-            reindex[i] = j;
-            curr[j] = curr[i];
-            prev[j] = prev[i];
-            copy[j] = t;
-            t._index = j++;
-          } else {
-            reindex[i] = -1;
-          }
-          curr[i] = 0; // clear unused bits
-        }
-
-        data = copy;
-        return reindex;
-      },
-      size: () => data.length,
+      data = copy;
+      return reindex;
+    },
+    size: () => data.length,
       curr: () => curr,
       prev: () => prev,
       reset: k => prev[k] = curr[k],
       all: () => width < 0x101 ? 0xff : width < 0x10001 ? 0xffff : 0xffffffff,
       set(k, one) {
-        curr[k] |= one;
-      },
-      clear(k, one) {
-        curr[k] &= ~one;
-      },
-      resize(n, m) {
-        const k = curr.length;
-        if (n > k || m > width) {
-          width = Math.max(m, width);
-          curr = array$1(n, width, curr);
-          prev = array$1(n, width);
-        }
+      curr[k] |= one;
+    },
+    clear(k, one) {
+      curr[k] &= ~one;
+    },
+    resize(n, m) {
+      const k = curr.length;
+      if (n > k || m > width) {
+        width = Math.max(m, width);
+        curr = array$1(n, width, curr);
+        prev = array$1(n, width);
       }
-    };
+    }
+  };
   }
   function lengthen(array, length, copy) {
     if (array.length >= length) return array;
@@ -32314,14 +32314,14 @@
       reindex: reindex,
       index: () => index,
       size: () => size
-    };
+  };
   }
   function sort(values, index) {
     values.sort.call(index, (a, b) => {
       const x = values[a],
-        y = values[b];
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
+      y = values[b];
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
     return permute(values, index);
   }
   function merge$1(base, value0, index0, n0, value1, index1, n1, value, index) {
@@ -32576,8 +32576,8 @@
         bits = this.value;
       pulse.runAfter(() => {
         const indexMap = bits.remove(num, map);
-        for (const key in indices) indices[key].reindex(indexMap);
-      });
+      for (const key in indices) indices[key].reindex(indexMap);
+    });
     },
     update(_, pulse, output) {
       const dims = this._dims,
@@ -32777,14 +32777,14 @@
         // multiple filters changed
         output.filter(output.ADD, k => {
           const c = curr[k] & ignore,
-            f = !c && c ^ prev[k] & ignore;
-          return f ? data[k] : null;
-        });
+          f = !c && c ^ prev[k] & ignore;
+        return f ? data[k] : null;
+      });
         output.filter(output.REM, k => {
           const c = curr[k] & ignore,
-            f = c && !(c ^ (c ^ prev[k] & ignore));
-          return f ? data[k] : null;
-        });
+          f = c && !(c ^ (c ^ prev[k] & ignore));
+        return f ? data[k] : null;
+      });
       }
 
       // add filter to source data in case of reflow...
@@ -33407,27 +33407,27 @@
 
   function isIdentifierStart(ch) {
     return ch === 0x24 || ch === 0x5F ||
-    // $ (dollar) and _ (underscore)
-    ch >= 0x41 && ch <= 0x5A ||
-    // A..Z
-    ch >= 0x61 && ch <= 0x7A ||
-    // a..z
-    ch === 0x5C ||
-    // \ (backslash)
-    ch >= 0x80 && RegexNonAsciiIdentifierStart.test(String.fromCharCode(ch));
+      // $ (dollar) and _ (underscore)
+      ch >= 0x41 && ch <= 0x5A ||
+      // A..Z
+      ch >= 0x61 && ch <= 0x7A ||
+      // a..z
+      ch === 0x5C ||
+      // \ (backslash)
+      ch >= 0x80 && RegexNonAsciiIdentifierStart.test(String.fromCharCode(ch));
   }
   function isIdentifierPart(ch) {
     return ch === 0x24 || ch === 0x5F ||
-    // $ (dollar) and _ (underscore)
-    ch >= 0x41 && ch <= 0x5A ||
-    // A..Z
-    ch >= 0x61 && ch <= 0x7A ||
-    // a..z
-    ch >= 0x30 && ch <= 0x39 ||
-    // 0..9
-    ch === 0x5C ||
-    // \ (backslash)
-    ch >= 0x80 && RegexNonAsciiIdentifierPart.test(String.fromCharCode(ch));
+      // $ (dollar) and _ (underscore)
+      ch >= 0x41 && ch <= 0x5A ||
+      // A..Z
+      ch >= 0x61 && ch <= 0x7A ||
+      // a..z
+      ch >= 0x30 && ch <= 0x39 ||
+      // 0..9
+      ch === 0x5C ||
+      // \ (backslash)
+      ch >= 0x80 && RegexNonAsciiIdentifierPart.test(String.fromCharCode(ch));
   }
 
   // 7.6.1.1 Keywords
@@ -33961,10 +33961,10 @@
       // would be replaced by `[x-b]` which throws an error.
       tmp = tmp.replace(/\\u\{([0-9a-fA-F]+)\}/g, ($0, $1) => {
         if (parseInt($1, 16) <= 0x10FFFF) {
-          return 'x';
-        }
-        throwError({}, MessageInvalidRegExp);
-      }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, 'x');
+        return 'x';
+      }
+      throwError({}, MessageInvalidRegExp);
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, 'x');
     }
 
     // First, detect invalid regular expressions.
@@ -34199,8 +34199,8 @@
       args = Array.prototype.slice.call(arguments, 2),
       msg = messageFormat.replace(/%(\d)/g, (whole, index) => {
         assert(index < args.length, 'Message reference must be in range');
-        return args[index];
-      });
+    return args[index];
+  });
     error = new Error(msg);
     error.index = index;
     error.description = msg;
@@ -34746,57 +34746,57 @@
       return generator(ast);
     }
     const Generators = {
-      Literal: n => n.raw,
+        Literal: n => n.raw,
       Identifier: n => {
-        const id = n.name;
-        if (memberDepth > 0) {
-          return id;
-        } else if (has$1(forbidden, id)) {
-          return error('Illegal identifier: ' + id);
-        } else if (has$1(constants, id)) {
-          return constants[id];
-        } else if (has$1(allowed, id)) {
-          return id;
-        } else {
-          globals[id] = 1;
-          return outputGlobal(id);
-        }
-      },
-      MemberExpression: n => {
-        const d = !n.computed,
-          o = visit(n.object);
-        if (d) memberDepth += 1;
-        const p = visit(n.property);
-        if (o === fieldvar) {
-          // strip quotes to sanitize field name (#1653)
-          fields[stripQuotes(p)] = 1;
-        }
-        if (d) memberDepth -= 1;
-        return o + (d ? '.' + p : '[' + p + ']');
-      },
-      CallExpression: n => {
-        if (n.callee.type !== 'Identifier') {
-          error('Illegal callee type: ' + n.callee.type);
-        }
-        const callee = n.callee.name,
-          args = n.arguments,
-          fn = has$1(functions, callee) && functions[callee];
-        if (!fn) error('Unrecognized function: ' + callee);
-        return isFunction(fn) ? fn(args) : fn + '(' + args.map(visit).join(',') + ')';
-      },
-      ArrayExpression: n => '[' + n.elements.map(visit).join(',') + ']',
+      const id = n.name;
+      if (memberDepth > 0) {
+        return id;
+      } else if (has$1(forbidden, id)) {
+        return error('Illegal identifier: ' + id);
+      } else if (has$1(constants, id)) {
+        return constants[id];
+      } else if (has$1(allowed, id)) {
+        return id;
+      } else {
+        globals[id] = 1;
+        return outputGlobal(id);
+      }
+    },
+    MemberExpression: n => {
+      const d = !n.computed,
+        o = visit(n.object);
+      if (d) memberDepth += 1;
+      const p = visit(n.property);
+      if (o === fieldvar) {
+        // strip quotes to sanitize field name (#1653)
+        fields[stripQuotes(p)] = 1;
+      }
+      if (d) memberDepth -= 1;
+      return o + (d ? '.' + p : '[' + p + ']');
+    },
+    CallExpression: n => {
+      if (n.callee.type !== 'Identifier') {
+        error('Illegal callee type: ' + n.callee.type);
+      }
+      const callee = n.callee.name,
+        args = n.arguments,
+        fn = has$1(functions, callee) && functions[callee];
+      if (!fn) error('Unrecognized function: ' + callee);
+      return isFunction(fn) ? fn(args) : fn + '(' + args.map(visit).join(',') + ')';
+    },
+    ArrayExpression: n => '[' + n.elements.map(visit).join(',') + ']',
       BinaryExpression: n => '(' + visit(n.left) + ' ' + n.operator + ' ' + visit(n.right) + ')',
       UnaryExpression: n => '(' + n.operator + visit(n.argument) + ')',
       ConditionalExpression: n => '(' + visit(n.test) + '?' + visit(n.consequent) + ':' + visit(n.alternate) + ')',
       LogicalExpression: n => '(' + visit(n.left) + n.operator + visit(n.right) + ')',
       ObjectExpression: n => '{' + n.properties.map(visit).join(',') + '}',
       Property: n => {
-        memberDepth += 1;
-        const k = visit(n.key);
-        memberDepth -= 1;
-        return k + ':' + visit(n.value);
-      }
-    };
+      memberDepth += 1;
+      const k = visit(n.key);
+      memberDepth -= 1;
+      return k + ':' + visit(n.value);
+    }
+  };
     function codegen(ast) {
       const result = {
         code: visit(ast),
@@ -34950,7 +34950,7 @@
   function selectionTuples(array, base) {
     return array.map(x => extend$1(base.fields ? {
       values: base.fields.map(f => (f.getter || (f.getter = field$1(f.field)))(x.datum))
-    } : {
+  } : {
       [SelectionId]: $selectionId(x.datum)
     }, base));
   }
@@ -35039,14 +35039,14 @@
     } else {
       Object.keys(resolved).forEach(field => {
         resolved[field] = Object.keys(resolved[field]).map(unit => resolved[field][unit]).reduce((acc, curr) => acc === undefined ? curr : ops[`${types[field]}_${op}`](acc, curr));
-      });
+    });
     }
     entries = Object.keys(multiRes);
     if (isMulti && entries.length) {
       const key = vl5 ? VlPoint : VlMulti;
       resolved[key] = op === Union ? {
         [Or]: entries.reduce((acc, k) => (acc.push(...multiRes[k]), acc), [])
-      } : {
+    } : {
         [And]: entries.map(k => ({
           [Or]: multiRes[k]
         }))
@@ -35247,7 +35247,7 @@
       _bandwidth: args => `this.__bandwidth(${ref(args[0])})`,
       _range: args => `${ref(args[0])}.range()`,
       _scale: args => `${ref(args[0])}(${codegen(args[1])})`
-    };
+  };
   }
   function geoMethod(methodName, globalMethod) {
     return function (projection, geojson, group) {
@@ -35358,8 +35358,8 @@
       changes.stamp = stamp;
       df.runAfter(() => {
         data.modified = true;
-        df.pulse(input, changes).run();
-      }, true, 1);
+      df.pulse(input, changes).run();
+    }, true, 1);
     }
     if (remove) {
       predicate = remove === true ? truthy : isArray(remove) || isTuple(remove) ? remove : removePredicate(remove);
@@ -35570,8 +35570,8 @@
   function lassoPath(lasso) {
     return array$5(lasso).reduce((svg, _ref, i) => {
       let [x, y] = _ref;
-      return svg += i == 0 ? `M ${x},${y} ` : i === lasso.length - 1 ? ' Z' : `L ${x},${y} `;
-    }, '');
+    return svg += i == 0 ? `M ${x},${y} ` : i === lasso.length - 1 ? ' Z' : `L ${x},${y} `;
+  }, '');
   }
 
   /**
@@ -35756,14 +35756,14 @@
 
   // export code generator parameters
   const codegenParams = {
-    forbidden: ['_'],
-    allowed: ['datum', 'event', 'item'],
-    fieldvar: 'datum',
-    globalvar: id => `_[${$(SignalPrefix + id)}]`,
+      forbidden: ['_'],
+      allowed: ['datum', 'event', 'item'],
+      fieldvar: 'datum',
+      globalvar: id => `_[${$(SignalPrefix + id)}]`,
     functions: buildFunctions,
     constants: Constants,
     visitors: astVisitors
-  };
+};
 
   // export code generator
   const codeGenerator = codegen(codegenParams);
@@ -35834,10 +35834,10 @@
     // analyze ast function calls for dependencies
     ast.visit(node => {
       if (node.type !== CallExpression) return;
-      const name = node.callee.name,
-        visit = codegenParams.visitors[name];
-      if (visit) visit(name, node.arguments, scope, params);
-    });
+    const name = node.callee.name,
+      visit = codegenParams.visitors[name];
+    if (visit) visit(name, node.arguments, scope, params);
+  });
 
     // perform code generation
     const gen = codeGenerator(ast);
@@ -35845,10 +35845,10 @@
     // collect signal dependencies
     gen.globals.forEach(name => {
       const signalName = SignalPrefix + name;
-      if (!has$1(params, signalName) && scope.getSignal(name)) {
-        params[signalName] = scope.signalRef(name);
-      }
-    });
+    if (!has$1(params, signalName) && scope.getSignal(name)) {
+      params[signalName] = scope.signalRef(name);
+    }
+  });
 
     // return generated expression code and dependencies
     return {
@@ -35956,10 +35956,10 @@
   : v !== v && u === u ? ${gt} : `;
   }
   var expressionCodegen = {
-    /**
-     * Parse an expression used to update an operator value.
-     */
-    operator: (ctx, expr) => expression(ctx, ['_'], expr.code),
+      /**
+       * Parse an expression used to update an operator value.
+       */
+      operator: (ctx, expr) => expression(ctx, ['_'], expr.code),
     /**
      * Parse an expression provided as an operator parameter value.
      */
@@ -35972,56 +35972,56 @@
      * Parse an expression used to handle an event-driven operator update.
      */
     handler: (ctx, expr) => {
-      const code = `var datum=event.item&&event.item.datum;return ${expr.code};`;
-      return expression(ctx, ['_', 'event'], code);
-    },
-    /**
-     * Parse an expression that performs visual encoding.
-     */
-    encode: (ctx, encode) => {
-      const {
-        marktype,
-        channels
-      } = encode;
-      let code = 'var o=item,datum=o.datum,m=0,$;';
-      for (const name in channels) {
-        const o = 'o[' + $(name) + ']';
-        code += `$=${channels[name].code};if(${o}!==$)${o}=$,m=1;`;
-      }
-      code += adjustSpatial(channels, marktype);
-      code += 'return m;';
-      return expression(ctx, ['item', '_'], code);
-    },
-    /**
-     * Optimized code generators for access and comparison.
-     */
-    codegen: {
-      get(path) {
-        const ref = `[${path.map($).join('][')}]`;
-        const get = Function('_', `return _${ref};`);
-        get.path = ref;
-        return get;
-      },
-      comparator(fields, orders) {
-        let t;
-        const map = (f, i) => {
-          const o = orders[i];
-          let u, v;
-          if (f.path) {
-            u = `a${f.path}`;
-            v = `b${f.path}`;
-          } else {
-            (t = t || {})['f' + i] = f;
-            u = `this.f${i}(a)`;
-            v = `this.f${i}(b)`;
-          }
-          return _compare(u, v, -o, o);
-        };
-        const fn = Function('a', 'b', 'var u, v; return ' + fields.map(map).join('') + '0;');
-        return t ? fn.bind(t) : fn;
-      }
+    const code = `var datum=event.item&&event.item.datum;return ${expr.code};`;
+    return expression(ctx, ['_', 'event'], code);
+  },
+  /**
+   * Parse an expression that performs visual encoding.
+   */
+  encode: (ctx, encode) => {
+    const {
+      marktype,
+      channels
+    } = encode;
+    let code = 'var o=item,datum=o.datum,m=0,$;';
+    for (const name in channels) {
+      const o = 'o[' + $(name) + ']';
+      code += `$=${channels[name].code};if(${o}!==$)${o}=$,m=1;`;
     }
-  };
+    code += adjustSpatial(channels, marktype);
+    code += 'return m;';
+    return expression(ctx, ['item', '_'], code);
+  },
+  /**
+   * Optimized code generators for access and comparison.
+   */
+  codegen: {
+    get(path) {
+      const ref = `[${path.map($).join('][')}]`;
+      const get = Function('_', `return _${ref};`);
+      get.path = ref;
+      return get;
+    },
+    comparator(fields, orders) {
+      let t;
+      const map = (f, i) => {
+        const o = orders[i];
+        let u, v;
+        if (f.path) {
+          u = `a${f.path}`;
+          v = `b${f.path}`;
+        } else {
+          (t = t || {})['f' + i] = f;
+          u = `this.f${i}(a)`;
+          v = `this.f${i}(b)`;
+        }
+        return _compare(u, v, -o, o);
+      };
+      const fn = Function('a', 'b', 'var u, v; return ' + fields.map(map).join('') + '0;');
+      return t ? fn.bind(t) : fn;
+    }
+  }
+};
 
   /**
    * Parse a dataflow operator.
@@ -36258,19 +36258,19 @@
       var signals = state.signals = {};
       Object.keys(ctx.signals).forEach(key => {
         const op = ctx.signals[key];
-        if (options.signals(key, op)) {
-          signals[key] = op.value;
-        }
-      });
+      if (options.signals(key, op)) {
+        signals[key] = op.value;
+      }
+    });
     }
     if (options.data) {
       var data = state.data = {};
       Object.keys(ctx.data).forEach(key => {
         const dataset = ctx.data[key];
-        if (options.data(key, dataset)) {
-          data[key] = dataset.input.value;
-        }
-      });
+      if (options.data(key, dataset)) {
+        data[key] = dataset.input.value;
+      }
+    });
     }
     if (ctx.subcontext && options.recurse !== false) {
       state.subcontext = ctx.subcontext.map(ctx => ctx.getState(options));
@@ -36284,14 +36284,14 @@
       signals = state.signals;
     Object.keys(signals || {}).forEach(key => {
       df.update(ctx.signals[key], signals[key], SKIP);
-    });
+  });
     Object.keys(data || {}).forEach(key => {
       df.pulse(ctx.data[key].input, df.changeset().remove(truthy).insert(data[key]));
-    });
+  });
     (state.subcontext || []).forEach((substate, i) => {
       const subctx = ctx.subcontext[i];
-      if (subctx) subctx.setState(substate);
-    });
+    if (subctx) subctx.setState(substate);
+  });
   }
 
   /**
@@ -36378,9 +36378,9 @@
         } else {
           (ctx.unresolved = ctx.unresolved || []).push(() => {
             p = ctx.get(spec.parent.$ref);
-            df.connect(p, [op]);
-            op.targets().add(p);
-          });
+          df.connect(p, [op]);
+          op.targets().add(p);
+        });
         }
       }
       if (spec.signal) {
@@ -36459,9 +36459,9 @@
     // respond to background signal
     view.add(null, _ => {
       view._background = _.bg;
-      view._resize = 1;
-      return _.bg;
-    }, {
+    view._resize = 1;
+    return _.bg;
+  }, {
       bg: view._signals.background
     });
   }
@@ -36476,13 +36476,13 @@
     // evaluate cursor on each mousemove event
     view.on(view.events('view', 'mousemove'), cursor, (_, event) => {
       const value = cursor.value,
-        user = value ? isString(value) ? value : value.user : Default,
-        item = event.item && event.item.cursor || null;
-      return value && user === value.user && item == value.item ? value : {
-        user: user,
-        item: item
-      };
-    });
+      user = value ? isString(value) ? value : value.user : Default,
+      item = event.item && event.item.cursor || null;
+    return value && user === value.user && item == value.item ? value : {
+      user: user,
+      item: item
+    };
+  });
 
     // when cursor signal updates, set visible cursor
     view.add(null, function (_) {
@@ -36551,10 +36551,10 @@
     view._resizeListeners.forEach(handler => {
       try {
         handler(w, h);
-      } catch (error) {
-        view.error(error);
-      }
-    });
+  } catch (error) {
+      view.error(error);
+    }
+  });
   }
 
   /**
@@ -36632,7 +36632,7 @@
       xy: xy,
       x: item => xy(item)[0],
       y: item => xy(item)[1]
-    };
+  };
   }
   const VIEW$1 = 'view',
     TIMER = 'timer',
@@ -36653,7 +36653,7 @@
     const unpack = (obj, keys) => {
       keys.forEach(k => {
         if (isArray(obj[k])) obj[k] = toSet(obj[k]);
-      });
+    });
     };
     unpack(events.defaults, ['prevent', 'allow']);
     unpack(events, ['view', 'window', 'selector']);
@@ -36694,10 +36694,10 @@
       send = function (e, item) {
         view.runAsync(null, () => {
           if (source === VIEW$1 && prevent(view, type)) {
-            e.preventDefault();
-          }
-          s.receive(eventExtend(view, e, item));
-        });
+          e.preventDefault();
+        }
+        s.receive(eventExtend(view, e, item));
+      });
       },
       sources;
     if (source === TIMER) {
@@ -36817,14 +36817,14 @@
         active: false,
         set: null,
         update: value => {
-          if (value != view.signal(param.signal)) {
-            view.runAsync(null, () => {
-              bind.source = true;
-              view.signal(param.signal, value);
-            });
-          }
-        }
-      };
+        if (value != view.signal(param.signal)) {
+        view.runAsync(null, () => {
+          bind.source = true;
+        view.signal(param.signal, value);
+      });
+      }
+    }
+    };
       if (param.debounce) {
         bind.update = debounce(param.debounce, bind.update);
       }
@@ -36834,7 +36834,7 @@
     if (!bind.active) {
       view.on(view._signals[param.signal], null, () => {
         bind.source ? bind.source = false : bind.set(view.signal(param.signal));
-      });
+    });
       bind.active = true;
     }
     return bind;
@@ -36946,13 +36946,13 @@
       const attr = {
         value: option
       };
-      if (valuesEqual(option, value)) attr.selected = true;
-      node.appendChild(element('option', attr, (labels[i] || option) + ''));
-    });
+    if (valuesEqual(option, value)) attr.selected = true;
+    node.appendChild(element('option', attr, (labels[i] || option) + ''));
+  });
     el.appendChild(node);
     node.addEventListener('change', () => {
       bind.update(param.options[node.selectedIndex]);
-    });
+  });
     bind.elements = [node];
     bind.set = value => {
       for (let i = 0, n = param.options.length; i < n; ++i) {
@@ -36979,14 +36979,14 @@
         name: param.signal,
         value: option
       };
-      if (valuesEqual(option, value)) attr.checked = true;
-      const input = element('input', attr);
-      input.addEventListener('change', () => bind.update(option));
-      const label = element('label', {}, (labels[i] || option) + '');
-      label.prepend(input);
-      group.appendChild(label);
-      return input;
-    });
+    if (valuesEqual(option, value)) attr.checked = true;
+    const input = element('input', attr);
+    input.addEventListener('change', () => bind.update(option));
+    const label = element('label', {}, (labels[i] || option) + '');
+    label.prepend(input);
+    group.appendChild(label);
+    return input;
+  });
     bind.set = value => {
       const nodes = bind.elements,
         n = nodes.length;
@@ -37053,7 +37053,7 @@
     if (prevHandler) {
       prevHandler.handlers().forEach(h => {
         handler.on(h.type, h.handler);
-      });
+    });
     }
     return handler;
   }
@@ -37086,12 +37086,12 @@
       }));
       view._bind.forEach(_ => {
         if (_.param.element && config !== 'container') {
-          _.element = lookup$1(view, _.param.element, !!_.param.input);
-        }
-      });
+        _.element = lookup$1(view, _.param.element, !!_.param.input);
+      }
+    });
       view._bind.forEach(_ => {
         bind(view, _.element || elBind, _);
-      });
+    });
     }
     return view;
   }
@@ -37227,18 +37227,18 @@
     // respond to width signal
     view._resizeWidth = view.add(null, _ => {
       view._width = _.size;
-      view._viewWidth = viewWidth(view, _.size);
-      resetSize();
-    }, {
+    view._viewWidth = viewWidth(view, _.size);
+    resetSize();
+  }, {
       size: w
     });
 
     // respond to height signal
     view._resizeHeight = view.add(null, _ => {
       view._height = _.size;
-      view._viewHeight = viewHeight(view, _.size);
-      resetSize();
-    }, {
+    view._viewHeight = viewHeight(view, _.size);
+    resetSize();
+  }, {
       size: h
     });
 
@@ -37256,45 +37256,45 @@
     this.runAfter(view => {
       let rerun = 0;
 
-      // reset autosize flag
-      view._autosize = 0;
+    // reset autosize flag
+    view._autosize = 0;
 
-      // width value changed: update signal, skip resize op
-      if (view.width() !== width) {
-        rerun = 1;
-        view.signal(Width, width, Skip$1); // set width, skip update calc
-        view._resizeWidth.skip(true); // skip width resize handler
-      }
+    // width value changed: update signal, skip resize op
+    if (view.width() !== width) {
+      rerun = 1;
+      view.signal(Width, width, Skip$1); // set width, skip update calc
+      view._resizeWidth.skip(true); // skip width resize handler
+    }
 
-      // height value changed: update signal, skip resize op
-      if (view.height() !== height) {
-        rerun = 1;
-        view.signal(Height, height, Skip$1); // set height, skip update calc
-        view._resizeHeight.skip(true); // skip height resize handler
-      }
+    // height value changed: update signal, skip resize op
+    if (view.height() !== height) {
+      rerun = 1;
+      view.signal(Height, height, Skip$1); // set height, skip update calc
+      view._resizeHeight.skip(true); // skip height resize handler
+    }
 
-      // view width changed: update view property, set resize flag
-      if (view._viewWidth !== viewWidth) {
-        view._resize = 1;
-        view._viewWidth = viewWidth;
-      }
+    // view width changed: update view property, set resize flag
+    if (view._viewWidth !== viewWidth) {
+      view._resize = 1;
+      view._viewWidth = viewWidth;
+    }
 
-      // view height changed: update view property, set resize flag
-      if (view._viewHeight !== viewHeight) {
-        view._resize = 1;
-        view._viewHeight = viewHeight;
-      }
+    // view height changed: update view property, set resize flag
+    if (view._viewHeight !== viewHeight) {
+      view._resize = 1;
+      view._viewHeight = viewHeight;
+    }
 
-      // origin changed: update view property, set resize flag
-      if (view._origin[0] !== origin[0] || view._origin[1] !== origin[1]) {
-        view._resize = 1;
-        view._origin = origin;
-      }
+    // origin changed: update view property, set resize flag
+    if (view._origin[0] !== origin[0] || view._origin[1] !== origin[1]) {
+      view._resize = 1;
+      view._origin = origin;
+    }
 
-      // run dataflow on width/height signal change
-      if (rerun) view.run('enter');
-      if (auto) view.runAfter(v => v.resize());
-    }, false, 1);
+    // run dataflow on width/height signal change
+    if (rerun) view.run('enter');
+    if (auto) view.runAfter(v => v.resize());
+  }, false, 1);
   }
 
   /**
@@ -37336,8 +37336,8 @@
   function setState(state) {
     this.runAsync(null, v => {
       v._trigger = false;
-      v._runtime.setState(state);
-    }, v => {
+    v._runtime.setState(state);
+  }, v => {
       v._trigger = true;
     });
     return this;
@@ -37361,8 +37361,8 @@
   function formatObject(obj) {
     return Object.keys(obj).map(key => {
       const v = obj[key];
-      return key + ': ' + (isArray(v) ? formatArray(v) : formatValue(v));
-    }).join('\n');
+    return key + ': ' + (isArray(v) ? formatArray(v) : formatValue(v));
+  }).join('\n');
   }
   function formatArray(value) {
     return '[' + value.map(formatValue).join(', ') + ']';
@@ -37476,191 +37476,191 @@
     // -- DATAFLOW / RENDERING ----
 
     async evaluate(encode, prerun, postrun) {
-      // evaluate dataflow and prerun
-      await Dataflow.prototype.evaluate.call(this, encode, prerun);
+    // evaluate dataflow and prerun
+    await Dataflow.prototype.evaluate.call(this, encode, prerun);
 
-      // render as needed
-      if (this._redraw || this._resize) {
-        try {
-          if (this._renderer) {
-            if (this._resize) {
-              this._resize = 0;
-              resizeRenderer(this);
-            }
-            await this._renderer.renderAsync(this._scenegraph.root);
+    // render as needed
+    if (this._redraw || this._resize) {
+      try {
+        if (this._renderer) {
+          if (this._resize) {
+            this._resize = 0;
+            resizeRenderer(this);
           }
-          this._redraw = false;
-        } catch (e) {
-          this.error(e);
+          await this._renderer.renderAsync(this._scenegraph.root);
         }
+        this._redraw = false;
+      } catch (e) {
+        this.error(e);
       }
+    }
 
-      // evaluate postrun
-      if (postrun) asyncCallback(this, postrun);
-      return this;
-    },
-    dirty(item) {
-      this._redraw = true;
-      this._renderer && this._renderer.dirty(item);
-    },
-    // -- GET / SET ----
+    // evaluate postrun
+    if (postrun) asyncCallback(this, postrun);
+    return this;
+  },
+  dirty(item) {
+    this._redraw = true;
+    this._renderer && this._renderer.dirty(item);
+  },
+  // -- GET / SET ----
 
-    description(text) {
-      if (arguments.length) {
-        const desc = text != null ? text + '' : null;
-        if (desc !== this._desc) ariaLabel(this._el, this._desc = desc);
-        return this;
-      }
-      return this._desc;
-    },
-    container() {
-      return this._el;
-    },
-    scenegraph() {
-      return this._scenegraph;
-    },
-    origin() {
-      return this._origin.slice();
-    },
-    signal(name, value, options) {
-      const op = lookupSignal(this, name);
-      return arguments.length === 1 ? op.value : this.update(op, value, options);
-    },
-    width(_) {
-      return arguments.length ? this.signal('width', _) : this.signal('width');
-    },
-    height(_) {
-      return arguments.length ? this.signal('height', _) : this.signal('height');
-    },
-    padding(_) {
-      return arguments.length ? this.signal('padding', padding(_)) : padding(this.signal('padding'));
-    },
-    autosize(_) {
-      return arguments.length ? this.signal('autosize', _) : this.signal('autosize');
-    },
-    background(_) {
-      return arguments.length ? this.signal('background', _) : this.signal('background');
-    },
-    renderer(type) {
-      if (!arguments.length) return this._renderType;
-      if (!renderModule(type)) error('Unrecognized renderer type: ' + type);
-      if (type !== this._renderType) {
-        this._renderType = type;
-        this._resetRenderer();
-      }
+  description(text) {
+    if (arguments.length) {
+      const desc = text != null ? text + '' : null;
+      if (desc !== this._desc) ariaLabel(this._el, this._desc = desc);
       return this;
-    },
-    tooltip(handler) {
-      if (!arguments.length) return this._tooltip;
-      if (handler !== this._tooltip) {
-        this._tooltip = handler;
-        this._resetRenderer();
-      }
-      return this;
-    },
-    loader(loader) {
-      if (!arguments.length) return this._loader;
-      if (loader !== this._loader) {
-        Dataflow.prototype.loader.call(this, loader);
-        this._resetRenderer();
-      }
-      return this;
-    },
-    resize() {
-      // set flag to perform autosize
-      this._autosize = 1;
-      // touch autosize signal to ensure top-level ViewLayout runs
-      return this.touch(lookupSignal(this, 'autosize'));
-    },
-    _resetRenderer() {
-      if (this._renderer) {
-        this._renderer = null;
-        this.initialize(this._el, this._elBind);
-      }
-    },
-    // -- SIZING ----
-    _resizeView: resizeView,
+    }
+    return this._desc;
+  },
+  container() {
+    return this._el;
+  },
+  scenegraph() {
+    return this._scenegraph;
+  },
+  origin() {
+    return this._origin.slice();
+  },
+  signal(name, value, options) {
+    const op = lookupSignal(this, name);
+    return arguments.length === 1 ? op.value : this.update(op, value, options);
+  },
+  width(_) {
+    return arguments.length ? this.signal('width', _) : this.signal('width');
+  },
+  height(_) {
+    return arguments.length ? this.signal('height', _) : this.signal('height');
+  },
+  padding(_) {
+    return arguments.length ? this.signal('padding', padding(_)) : padding(this.signal('padding'));
+  },
+  autosize(_) {
+    return arguments.length ? this.signal('autosize', _) : this.signal('autosize');
+  },
+  background(_) {
+    return arguments.length ? this.signal('background', _) : this.signal('background');
+  },
+  renderer(type) {
+    if (!arguments.length) return this._renderType;
+    if (!renderModule(type)) error('Unrecognized renderer type: ' + type);
+    if (type !== this._renderType) {
+      this._renderType = type;
+      this._resetRenderer();
+    }
+    return this;
+  },
+  tooltip(handler) {
+    if (!arguments.length) return this._tooltip;
+    if (handler !== this._tooltip) {
+      this._tooltip = handler;
+      this._resetRenderer();
+    }
+    return this;
+  },
+  loader(loader) {
+    if (!arguments.length) return this._loader;
+    if (loader !== this._loader) {
+      Dataflow.prototype.loader.call(this, loader);
+      this._resetRenderer();
+    }
+    return this;
+  },
+  resize() {
+    // set flag to perform autosize
+    this._autosize = 1;
+    // touch autosize signal to ensure top-level ViewLayout runs
+    return this.touch(lookupSignal(this, 'autosize'));
+  },
+  _resetRenderer() {
+    if (this._renderer) {
+      this._renderer = null;
+      this.initialize(this._el, this._elBind);
+    }
+  },
+  // -- SIZING ----
+  _resizeView: resizeView,
     // -- EVENT HANDLING ----
 
     addEventListener(type, handler, options) {
-      let callback = handler;
-      if (!(options && options.trap === false)) {
-        // wrap callback in error handler
-        callback = trap(this, handler);
-        callback.raw = handler;
-      }
-      this._handler.on(type, callback);
-      return this;
-    },
-    removeEventListener(type, handler) {
-      var handlers = this._handler.handlers(type),
-        i = handlers.length,
-        h,
-        t;
+    let callback = handler;
+    if (!(options && options.trap === false)) {
+      // wrap callback in error handler
+      callback = trap(this, handler);
+      callback.raw = handler;
+    }
+    this._handler.on(type, callback);
+    return this;
+  },
+  removeEventListener(type, handler) {
+    var handlers = this._handler.handlers(type),
+      i = handlers.length,
+      h,
+      t;
 
-      // search registered handlers, remove if match found
-      while (--i >= 0) {
-        t = handlers[i].type;
-        h = handlers[i].handler;
-        if (type === t && (handler === h || handler === h.raw)) {
-          this._handler.off(t, h);
-          break;
-        }
+    // search registered handlers, remove if match found
+    while (--i >= 0) {
+      t = handlers[i].type;
+      h = handlers[i].handler;
+      if (type === t && (handler === h || handler === h.raw)) {
+        this._handler.off(t, h);
+        break;
       }
-      return this;
-    },
-    addResizeListener(handler) {
-      const l = this._resizeListeners;
-      if (l.indexOf(handler) < 0) {
-        // add handler if it isn't already registered
-        // note: error trapping handled elsewhere, so
-        // no need to wrap handlers here
-        l.push(handler);
+    }
+    return this;
+  },
+  addResizeListener(handler) {
+    const l = this._resizeListeners;
+    if (l.indexOf(handler) < 0) {
+      // add handler if it isn't already registered
+      // note: error trapping handled elsewhere, so
+      // no need to wrap handlers here
+      l.push(handler);
+    }
+    return this;
+  },
+  removeResizeListener(handler) {
+    var l = this._resizeListeners,
+      i = l.indexOf(handler);
+    if (i >= 0) {
+      l.splice(i, 1);
+    }
+    return this;
+  },
+  addSignalListener(name, handler) {
+    return addOperatorListener(this, name, lookupSignal(this, name), handler);
+  },
+  removeSignalListener(name, handler) {
+    return removeOperatorListener(this, lookupSignal(this, name), handler);
+  },
+  addDataListener(name, handler) {
+    return addOperatorListener(this, name, dataref(this, name).values, handler);
+  },
+  removeDataListener(name, handler) {
+    return removeOperatorListener(this, dataref(this, name).values, handler);
+  },
+  globalCursor(_) {
+    if (arguments.length) {
+      if (this._globalCursor !== !!_) {
+        const prev = setCursor(this, null); // clear previous cursor
+        this._globalCursor = !!_;
+        if (prev) setCursor(this, prev); // swap cursor
       }
-      return this;
-    },
-    removeResizeListener(handler) {
-      var l = this._resizeListeners,
-        i = l.indexOf(handler);
-      if (i >= 0) {
-        l.splice(i, 1);
-      }
-      return this;
-    },
-    addSignalListener(name, handler) {
-      return addOperatorListener(this, name, lookupSignal(this, name), handler);
-    },
-    removeSignalListener(name, handler) {
-      return removeOperatorListener(this, lookupSignal(this, name), handler);
-    },
-    addDataListener(name, handler) {
-      return addOperatorListener(this, name, dataref(this, name).values, handler);
-    },
-    removeDataListener(name, handler) {
-      return removeOperatorListener(this, dataref(this, name).values, handler);
-    },
-    globalCursor(_) {
-      if (arguments.length) {
-        if (this._globalCursor !== !!_) {
-          const prev = setCursor(this, null); // clear previous cursor
-          this._globalCursor = !!_;
-          if (prev) setCursor(this, prev); // swap cursor
-        }
 
-        return this;
-      } else {
-        return this._globalCursor;
-      }
-    },
-    preventDefault(_) {
-      if (arguments.length) {
-        this._preventDefault = _;
-        return this;
-      } else {
-        return this._preventDefault;
-      }
-    },
-    timer,
+      return this;
+    } else {
+      return this._globalCursor;
+    }
+  },
+  preventDefault(_) {
+    if (arguments.length) {
+      this._preventDefault = _;
+      return this;
+    } else {
+      return this._preventDefault;
+    }
+  },
+  timer,
     events,
     finalize,
     hover,
@@ -37680,7 +37680,7 @@
     // -- SAVE / RESTORE STATE ----
     getState,
     setState
-  });
+});
 
   const VIEW = 'view',
     LBRACK = '[',
@@ -37866,9 +37866,9 @@
     if (!s.length || a.length > 2) throw s;
     return a.map(_ => {
       const x = +_;
-      if (x !== x) throw s;
-      return x;
-    });
+    if (x !== x) throw s;
+    return x;
+  });
   }
 
   function parseAutosize(spec) {
@@ -37975,12 +37975,12 @@
     // resolve styles, apply with increasing precedence
     array$5(style).forEach(name => {
       const props = config.style && config.style[name];
-      for (const key in props) {
-        if (!has(key, encode)) {
-          applyDefault(defaults, key, props[key]);
-        }
+    for (const key in props) {
+      if (!has(key, encode)) {
+        applyDefault(defaults, key, props[key]);
       }
-    });
+    }
+  });
     encode = extend$1({}, encode); // defensive copy
     for (key in defaults) {
       props = defaults[key];
@@ -38099,8 +38099,8 @@
     let code = '';
     enc.forEach(rule => {
       const value = entry$1(rule);
-      code += rule.test ? `(${rule.test})?${value}:` : value;
-    });
+    code += rule.test ? `(${rule.test})?${value}:` : value;
+  });
 
     // if no else clause, terminate with null (#1366)
     if (peek$1(code) === ':') {
@@ -38160,7 +38160,7 @@
       // signal push must not use properties reserved for standard definition
       OUTER_INVALID.forEach(prop => {
         if (signal[prop] !== undefined) outerError('Invalid property ', prop);
-      });
+    });
     } else {
       // define a new signal in the current scope
       const op = scope.addSignal(name, signal.value);
@@ -38259,9 +38259,9 @@
   }
   function mergeStream(stream, scope) {
     const list = stream.merge.map(s => parseStream(s, scope)),
-      entry = streamParameters({
-        merge: list
-      }, stream, scope);
+    entry = streamParameters({
+      merge: list
+    }, stream, scope);
     return scope.addStream(entry).id;
   }
   function nestedStream(stream, scope) {
@@ -38389,7 +38389,7 @@
   function mergeSources(sources) {
     return {
       signal: '[' + sources.map(s => s.scale ? 'scale("' + s.scale + '")' : s.signal) + ']'
-    };
+  };
   }
   function parseSignalUpdates(signal, scope) {
     const op = scope.getSignal(signal.name);
@@ -38514,9 +38514,9 @@
           data: data,
           field: d
         } : isArray(d) || d.signal ? fieldRef(d, scope) : d;
-        dom.push(d);
-        return dom;
-      }, []);
+    dom.push(d);
+    return dom;
+  }, []);
     return (isDiscrete(spec.type) ? ordinalMultipleDomain : isQuantile(spec.type) ? quantileMultipleDomain : numericMultipleDomain)(domain, scope, fields);
   }
   function fieldRef(data, scope) {
@@ -38543,9 +38543,9 @@
     // get value counts for each domain field
     const counts = fields.map(f => {
       const data = scope.getData(f.data);
-      if (!data) dataLookupError(f.data);
-      return data.countsRef(scope, f.field, sort);
-    });
+    if (!data) dataLookupError(f.data);
+    return data.countsRef(scope, f.field, sort);
+  });
 
     // aggregate the results from each domain field
     const p = {
@@ -38594,9 +38594,9 @@
     // get value arrays for each domain field
     const values = fields.map(f => {
       const data = scope.getData(f.data);
-      if (!data) dataLookupError(f.data);
-      return data.domainRef(scope, f.field);
-    });
+    if (!data) dataLookupError(f.data);
+    return data.domainRef(scope, f.field);
+  });
 
     // combine value arrays
     return ref(scope.add(MultiValues({
@@ -38607,9 +38607,9 @@
     // get extents for each domain field
     const extents = fields.map(f => {
       const data = scope.getData(f.data);
-      if (!data) dataLookupError(f.data);
-      return data.extentRef(scope, f.field);
-    });
+    if (!data) dataLookupError(f.data);
+    return data.extentRef(scope, f.field);
+  });
 
     // combine extents
     return ref(scope.add(MultiExtent({
@@ -39073,12 +39073,12 @@
     });
     LegendScales.forEach(scale => {
       if (spec[scale]) {
-        update[scale] = enter[scale] = {
-          scale: spec[scale],
-          field: Value
-        };
-      }
-    });
+      update[scale] = enter[scale] = {
+        scale: spec[scale],
+        field: Value
+      };
+    }
+  });
     const symbols = guideMark({
       type: SymbolMark,
       role: LegendSymbolRole,
@@ -39733,14 +39733,14 @@
     if (spec.transform) {
       spec.transform.forEach(_ => {
         const tx = parseTransform(_, scope),
-          md = tx.metadata;
-        if (md.generates || md.changes) {
-          error('Mark transforms should not generate new data.');
-        }
-        if (!md.nomod) enc.params.mod = true; // update encode mod handling
-        tx.params.pulse = ref(op);
-        scope.add(op = tx);
-      });
+        md = tx.metadata;
+      if (md.generates || md.changes) {
+        error('Mark transforms should not generate new data.');
+      }
+      if (!md.nomod) enc.params.mod = true; // update encode mod handling
+      tx.params.pulse = ref(op);
+      scope.add(op = tx);
+    });
     }
 
     // if item sort specified, perform post-encoding
@@ -39780,8 +39780,8 @@
       }
       scope.pushState(encodeRef, layoutRef || boundRef, joinRef);
       facet ? parseFacet(spec, scope, input) // explicit facet
-      : nested ? parseSubflow(spec, scope, input) // standard mark group
-      : scope.parse(spec); // guide group, we can avoid nested scopes
+        : nested ? parseSubflow(spec, scope, input) // standard mark group
+        : scope.parse(spec); // guide group, we can avoid nested scopes
       scope.popState();
       if (nested) {
         if (layout) ops.push(layout);
@@ -39809,10 +39809,10 @@
       scope.addData(name, new DataScope(scope, store, render, sieve));
       if (spec.on) spec.on.forEach(on => {
         if (on.insert || on.remove || on.toggle) {
-          error('Marks only support modify triggers.');
-        }
-        parseTrigger(on, scope, name);
-      });
+        error('Marks only support modify triggers.');
+      }
+      parseTrigger(on, scope, name);
+    });
     }
   }
   function parseOverlap(overlap, source, scope) {
@@ -40166,12 +40166,12 @@
     if (data.transform) {
       data.transform.forEach(tx => {
         transforms.push(parseTransform(tx, scope));
-      });
+    });
     }
     if (data.on) {
       data.on.forEach(on => {
         parseTrigger(on, scope, data.name);
-      });
+    });
     }
     scope.addDataPipeline(data.name, analyze(data, scope, transforms));
   }
@@ -40513,9 +40513,9 @@
       while (entry.mult != null) {
         if (!isObject(entry.mult)) {
           entry.mult = isSignal(sign) // no offset if sign === 1
-          ? {
-            signal: `(${entry.mult}) * (${sign.signal})`
-          } : entry.mult * sign;
+            ? {
+              signal: `(${entry.mult}) * (${sign.signal})`
+            } : entry.mult * sign;
           return offset;
         } else {
           entry = entry.mult = extend$1({}, entry.mult);
@@ -40981,27 +40981,27 @@
     const _ = name => value(spec[name], config[name]),
       signals = [signalObject('background', _('background')), signalObject('autosize', parseAutosize(_('autosize'))), signalObject('padding', parsePadding(_('padding'))), signalObject('width', _('width') || 0), signalObject('height', _('height') || 0)],
       pre = signals.reduce((p, s) => (p[s.name] = s, p), {}),
-      map = {};
+    map = {};
 
     // add spec signal array
     array$5(spec.signals).forEach(s => {
       if (has$1(pre, s.name)) {
-        // merge if built-in signal
-        s = extend$1(pre[s.name], s);
-      } else {
-        // otherwise add to signal list
-        signals.push(s);
-      }
-      map[s.name] = s;
-    });
+      // merge if built-in signal
+      s = extend$1(pre[s.name], s);
+    } else {
+      // otherwise add to signal list
+      signals.push(s);
+    }
+    map[s.name] = s;
+  });
 
     // add config signal array
     array$5(config.signals).forEach(s => {
       if (!has$1(map, s.name) && !has$1(pre, s.name)) {
-        // add to signal list if not already defined
-        signals.push(s);
-      }
-    });
+      // add to signal list if not already defined
+      signals.push(s);
+    }
+  });
     return signals;
   }
   function Scope(config, options) {
@@ -41080,7 +41080,7 @@
       if (op.refs) {
         op.refs.forEach(ref => {
           ref.$ref = op.id;
-        });
+      });
         op.refs = null;
       }
       return op;
